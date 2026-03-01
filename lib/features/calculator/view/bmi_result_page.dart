@@ -55,18 +55,20 @@ class BmiResultPage extends StatelessWidget {
 
     Color categoryColor;
     switch (result.category) {
-      case 'Underweight':
+      case 'Severe Thinness':
+      case 'Moderate Thinness':
+      case 'Mild Thinness':
         categoryColor = AppColors.bmiUnderweight;
         break;
-      case 'Healthy Weight':
+      case 'Normal':
         categoryColor = AppColors.bmiNormal;
         break;
       case 'Overweight':
         categoryColor = AppColors.bmiOverweight;
         break;
-      case 'Class 1 Obesity':
-      case 'Class 2 Obesity':
-      case 'Class 3 Obesity':
+      case 'Obese Class I':
+      case 'Obese Class II':
+      case 'Obese Class III':
         categoryColor = AppColors.bmiObese;
         break;
       default:
@@ -91,12 +93,6 @@ class BmiResultPage extends StatelessWidget {
         ),
         title: const Text('Your Result'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share),
-            onPressed: () {}, // Optional share functionality
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(AppTheme.spacingXl),
@@ -244,54 +240,127 @@ class BmiResultPage extends StatelessWidget {
                         vertical: AppTheme.spacingMd),
                     color: colorScheme.onSurface.withValues(alpha: 0.03),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Icon(Icons.table_chart_outlined,
-                            size: 20, color: colorScheme.onSurfaceVariant),
-                        const SizedBox(width: AppTheme.spacingMd),
-                        Text(
-                          'BMI CLASSIFICATIONS',
-                          style: theme.textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.0,
+                        Row(
+                          children: [
+                            Icon(Icons.table_chart_outlined,
+                                size: 20, color: colorScheme.onSurfaceVariant),
+                            const SizedBox(width: AppTheme.spacingMd),
+                            Text(
+                              'BMI CLASSIFICATIONS',
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => Dialog(
+                                backgroundColor: Colors.transparent,
+                                insetPadding: const EdgeInsets.symmetric(horizontal: AppTheme.spacingXl),
+                                child: Container(
+                                  padding: const EdgeInsets.all(AppTheme.spacingXl),
+                                  decoration: BoxDecoration(
+                                    color: theme.colorScheme.surface,
+                                    borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Classification Standards',
+                                        style: theme.textTheme.titleLarge?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: theme.colorScheme.primary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: AppTheme.spacingLg),
+                                      Text(
+                                        'These categories are based on World Health Organization (WHO) clinical standards for adults. They apply to both men and women aged 20 or older, providing a standardized measure of weight-related health risks.',
+                                        style: theme.textTheme.bodyMedium?.copyWith(
+                                          height: 1.5,
+                                          color: theme.colorScheme.onSurfaceVariant,
+                                        ),
+                                      ),
+                                      const SizedBox(height: AppTheme.spacingLg),
+                                      SizedBox(
+                                        width: double.infinity,
+                                        child: ElevatedButton(
+                                          onPressed: () => Navigator.pop(context),
+                                          child: const Text('Got it'),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(20),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Icon(
+                              Icons.info_outline,
+                              size: 18,
+                              color: colorScheme.primary,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   _ClassificationRow(
-                    category: 'Underweight',
-                    range: '< 18.5',
-                    isActive: result.category == 'Underweight',
+                    category: 'Severe Thinness',
+                    range: '< 16.0',
+                    isActive: result.category == 'Severe Thinness',
                     color: AppColors.bmiUnderweight,
                   ),
                   _ClassificationRow(
-                    category: 'Healthy Weight',
-                    range: '18.5 - 25',
-                    isActive: result.category == 'Healthy Weight',
+                    category: 'Moderate Thinness',
+                    range: '16.0 - 17.0',
+                    isActive: result.category == 'Moderate Thinness',
+                    color: AppColors.bmiUnderweight,
+                  ),
+                  _ClassificationRow(
+                    category: 'Mild Thinness',
+                    range: '17.0 - 18.5',
+                    isActive: result.category == 'Mild Thinness',
+                    color: AppColors.bmiUnderweight,
+                  ),
+                  _ClassificationRow(
+                    category: 'Normal',
+                    range: '18.5 - 25.0',
+                    isActive: result.category == 'Normal',
                     color: AppColors.bmiNormal,
                   ),
                   _ClassificationRow(
                     category: 'Overweight',
-                    range: '25 - 30',
+                    range: '25.0 - 30.0',
                     isActive: result.category == 'Overweight',
                     color: AppColors.bmiOverweight,
                   ),
                   _ClassificationRow(
-                    category: 'Class 1 Obesity',
-                    range: '30 - 35',
-                    isActive: result.category == 'Class 1 Obesity',
+                    category: 'Obese Class I',
+                    range: '30.0 - 35.0',
+                    isActive: result.category == 'Obese Class I',
                     color: AppColors.bmiObese,
                   ),
                   _ClassificationRow(
-                    category: 'Class 2 Obesity',
-                    range: '35 - 40',
-                    isActive: result.category == 'Class 2 Obesity',
+                    category: 'Obese Class II',
+                    range: '35.0 - 40.0',
+                    isActive: result.category == 'Obese Class II',
                     color: AppColors.bmiObese,
                   ),
                   _ClassificationRow(
-                    category: 'Class 3 Obesity',
-                    range: '> 40',
-                    isActive: result.category == 'Class 3 Obesity',
+                    category: 'Obese Class III',
+                    range: '> 40.0',
+                    isActive: result.category == 'Obese Class III',
                     color: AppColors.bmiObese,
                   ),
                 ],

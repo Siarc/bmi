@@ -27,30 +27,38 @@ class BmiResult extends Equatable {
   }
 
   /// Determine BMI category based on clinical standards.
+  /// Determine BMI category based on clinical standards (WHO).
   static String getCategory(double bmi) {
-    if (bmi < 18.5) return 'Underweight';
-    if (bmi < 25.0) return 'Healthy Weight';
+    if (bmi < 16.0) return 'Severe Thinness';
+    if (bmi < 17.0) return 'Moderate Thinness';
+    if (bmi < 18.5) return 'Mild Thinness';
+    if (bmi < 25.0) return 'Normal';
     if (bmi < 30.0) return 'Overweight';
-    if (bmi < 35.0) return 'Class 1 Obesity';
-    if (bmi < 40.0) return 'Class 2 Obesity';
-    return 'Class 3 Obesity';
+    if (bmi < 35.0) return 'Obese Class I';
+    if (bmi < 40.0) return 'Obese Class II';
+    return 'Obese Class III';
   }
 
   /// Get a health message based on BMI category.
+  /// Get a health message based on BMI category.
   String get healthMessage {
     switch (category) {
-      case 'Underweight':
-        return 'You are underweight. Consider consulting a healthcare provider about a balanced nutrition plan.';
-      case 'Healthy Weight':
-        return 'Great! You have a healthy weight. Keep maintaining your balanced lifestyle.';
+      case 'Severe Thinness':
+        return 'Your BMI indicates severe thinness. It is important to consult a healthcare provider for a thorough health evaluation.';
+      case 'Moderate Thinness':
+        return 'Your BMI indicates moderate thinness. Consider speaking with a doctor or nutritionist about achieving a healthy weight.';
+      case 'Mild Thinness':
+        return 'Your BMI indicates mild thinness. Focus on a balanced, nutrient-dense diet to support your health goals.';
+      case 'Normal':
+        return 'Great! You have a healthy weight. Keep maintaining your balanced lifestyle and stay active.';
       case 'Overweight':
-        return 'You are slightly overweight. Small changes in diet and activity can help.';
-      case 'Class 1 Obesity':
-        return 'Your BMI indicates Class 1 obesity. Consider consulting a healthcare provider for personalized guidance.';
-      case 'Class 2 Obesity':
-        return 'Your BMI indicates Class 2 obesity. Focus on nutrition and exercise, and consult a professional.';
-      case 'Class 3 Obesity':
-        return 'You fall into the Class 3 (Severe) Obesity category. Please seek medical advice to manage potential health risks.';
+        return 'You are slightly overweight. Small, sustainable changes in diet and daily activity can help you reach a healthy range.';
+      case 'Obese Class I':
+        return 'Your BMI indicates Class I obesity. Focus on nutrition and consistent physical activity to improve your overall health.';
+      case 'Obese Class II':
+        return 'Your BMI indicates Class II obesity. Consider consulting a healthcare professional for personalized health guidance.';
+      case 'Obese Class III':
+        return 'Your BMI indicates Class III obesity. Please seek medical advice to manage potential health risks and develop a care plan.';
       default:
         return '';
     }
