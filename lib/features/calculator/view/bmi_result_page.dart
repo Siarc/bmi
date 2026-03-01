@@ -178,7 +178,7 @@ class BmiResultPage extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          '${result.category} Weight',
+                          result.category,
                           style: theme.textTheme.labelLarge?.copyWith(
                             color: categoryColor,
                             fontWeight: FontWeight.bold,
