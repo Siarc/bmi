@@ -1,0 +1,796 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_theme.dart';
+import '../bloc/calculator_bloc.dart';
+import '../bloc/calculator_event.dart';
+import '../bloc/calculator_state.dart';
+import '../models/bmi_result.dart';
+
+/// Calculator Page — main BMI input screen.
+/// Matches the reference Stitch design for both light and dark themes.
+class CalculatorPage extends StatelessWidget {
+  const CalculatorPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const _CalculatorView();
+  }
+}
+
+class _CalculatorView extends StatefulWidget {
+  const _CalculatorView();
+
+  @override
+  State<_CalculatorView> createState() => _CalculatorViewState();
+}
+
+class _CalculatorViewState extends State<_CalculatorView> {
+  final _ageController = TextEditingController();
+  final _heightFeetController = TextEditingController();
+  final _heightInchesController = TextEditingController();
+  final _heightCmController = TextEditingController();
+  final _weightController = TextEditingController();
+  late bool _lastIsMetric;
+
+  @override
+  void initState() {
+    super.initState();
+    _lastIsMetric = context.read<CalculatorBloc>().state.isMetric;
+  }
+
+  @override
+  void dispose() {
+    _ageController.dispose();
+    _heightFeetController.dispose();
+    _heightInchesController.dispose();
+    _heightCmController.dispose();
+    _weightController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Scaffold(
+      backgroundColor: theme.scaffoldBackgroundColor,
+      appBar: AppBar(
+        title: Text(
+          'BMI Calculator',
+          style: theme.textTheme.headlineMedium?.copyWith(
+            color: colorScheme.primary,
+          ),
+        ),
+        centerTitle: true,
+        actions: const [],
+      ),
+      body: BlocConsumer<CalculatorBloc, CalculatorState>(
+        listener: (context, state) {
+          if (state.result != null) {
+            _showResultSheet(context, state.result!);
+          }
+          
+          // Sync controllers on unit toggle
+          if (state.isMetric != _lastIsMetric) {
+            _lastIsMetric = state.isMetric;
+            if (state.isMetric) {
+              _heightCmController.text = state.heightCm > 0 ? state.heightCm.toString() : '';
+              _weightController.text = state.weightKg > 0 ? state.weightKg.toString() : '';
+            } else {
+              _heightFeetController.text = state.heightFeet > 0 ? state.heightFeet.toString() : '';
+              _heightInchesController.text = state.heightInches > 0 ? state.heightInches.toString() : '';
+              _weightController.text = state.weightLbs > 0 ? state.weightLbs.toString() : '';
+            }
+          }
+        },
+        builder: (context, state) {
+          return SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppTheme.spacingXxl,
+              vertical: AppTheme.spacingLg,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Title section
+                Text(
+                  'Calculate Your BMI',
+                  style: theme.textTheme.displayMedium,
+                ),
+                const SizedBox(height: AppTheme.spacingSm),
+                Text(
+                  'Enter your details below to find out your Body Mass Index and health status.',
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                const SizedBox(height: AppTheme.spacingXxl),
+
+                // Unit toggle (Standard / Metric)
+                _UnitToggle(
+                  isMetric: state.isMetric,
+                  onChanged: (isMetric) {
+                    context.read<CalculatorBloc>().add(
+                          UnitSystemChanged(isMetric),
+                        );
+                  },
+                ),
+                const SizedBox(height: AppTheme.spacingXxl),
+
+                // Gender selector
+                _SectionLabel(label: 'Gender'),
+                const SizedBox(height: AppTheme.spacingMd),
+                _GenderSelector(
+                  selectedGender: state.gender,
+                  onChanged: (gender) {
+                    context.read<CalculatorBloc>().add(GenderChanged(gender));
+                  },
+                ),
+                const SizedBox(height: AppTheme.spacingXxl),
+
+                // Age input
+                _SectionLabel(label: 'Age'),
+                const SizedBox(height: AppTheme.spacingSm),
+                _InputField(
+                  controller: _ageController,
+                  placeholder: '25',
+                  suffix: 'years',
+                  validator: (v) {
+                    if (v == null || v.isEmpty) return null;
+                    final val = int.tryParse(v);
+                    if (val == null || val < 1 || val > 120) return 'Invalid age';
+                    return null;
+                  },
+                  onChanged: (value) {
+                    final age = int.tryParse(value) ?? 0;
+                    context.read<CalculatorBloc>().add(AgeChanged(age));
+                  },
+                ),
+                const SizedBox(height: AppTheme.spacingXxl),
+
+                // Height input
+                _SectionLabel(label: 'Height'),
+                const SizedBox(height: AppTheme.spacingSm),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (child, animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(0.05, 0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: state.isMetric
+                      ? _InputField(
+                          key: const ValueKey('height_cm'),
+                          controller: _heightCmController,
+                          placeholder: '170',
+                          suffix: 'cm',
+                          validator: (v) {
+                            if (v == null || v.isEmpty) return null;
+                            final val = double.tryParse(v);
+                            if (val == null || val < 50 || val > 300) return '50-300 cm';
+                            return null;
+                          },
+                          onChanged: (value) {
+                            final cm = double.tryParse(value) ?? 0;
+                            context.read<CalculatorBloc>().add(HeightCmChanged(cm));
+                          },
+                        )
+                      : Row(
+                          key: const ValueKey('height_ft_in'),
+                          children: [
+                            Expanded(
+                              child: _InputField(
+                                controller: _heightFeetController,
+                                placeholder: '5',
+                                suffix: 'ft',
+                                validator: (v) {
+                                  if (v == null || v.isEmpty) return null;
+                                  final val = int.tryParse(v);
+                                  if (val == null || val < 1 || val > 9) return '1-9 ft';
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  final ft = int.tryParse(value) ?? 0;
+                                  context
+                                      .read<CalculatorBloc>()
+                                      .add(HeightFeetChanged(ft));
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: AppTheme.spacingLg),
+                            Expanded(
+                              child: _InputField(
+                                controller: _heightInchesController,
+                                placeholder: '10',
+                                suffix: 'in',
+                                validator: (v) {
+                                  if (v == null || v.isEmpty) return null;
+                                  final val = int.tryParse(v);
+                                  if (val == null || val < 0 || val > 11) return '0-11 in';
+                                  return null;
+                                },
+                                onChanged: (value) {
+                                  final inches = int.tryParse(value) ?? 0;
+                                  context
+                                      .read<CalculatorBloc>()
+                                      .add(HeightInchesChanged(inches));
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
+                const SizedBox(height: AppTheme.spacingXxl),
+
+                // Weight input
+                _SectionLabel(label: 'Weight'),
+                const SizedBox(height: AppTheme.spacingSm),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (child, animation) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(0.05, 0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: _InputField(
+                    key: ValueKey('weight_${state.isMetric ? 'kg' : 'lbs'}'),
+                    controller: _weightController,
+                    placeholder: state.isMetric ? '70' : '160',
+                    suffix: state.isMetric ? 'kg' : 'lbs',
+                    validator: (v) {
+                      if (v == null || v.isEmpty) return null;
+                      final val = double.tryParse(v);
+                      if (val == null) return 'Invalid';
+                      if (state.isMetric) {
+                        if (val < 2 || val > 500) return '2-500 kg';
+                      } else {
+                        if (val < 4 || val > 1000) return '4-1000 lbs';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      final w = double.tryParse(value) ?? 0;
+                      if (state.isMetric) {
+                        context.read<CalculatorBloc>().add(WeightKgChanged(w));
+                      } else {
+                        context.read<CalculatorBloc>().add(WeightLbsChanged(w));
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(height: AppTheme.spacingXxl),
+
+                // Calculate button
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: state.canCalculate
+                        ? () {
+                            context
+                                .read<CalculatorBloc>()
+                                .add(const CalculateBmiRequested());
+                          }
+                        : null,
+                    icon: const Icon(Icons.calculate),
+                    label: const Text('Calculate BMI'),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(AppTheme.radiusLg),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: AppTheme.spacingXxxl),
+
+                // Info card
+                _InfoCard(),
+                const SizedBox(height: AppTheme.spacingXxl),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  void _showResultSheet(BuildContext context, BmiResult result) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    // Get category color from AppColors
+    Color categoryColor;
+    switch (result.category) {
+      case 'Underweight':
+        categoryColor = AppColors.bmiUnderweight;
+        break;
+      case 'Normal':
+        categoryColor = AppColors.bmiNormal;
+        break;
+      case 'Overweight':
+        categoryColor = AppColors.bmiOverweight;
+        break;
+      case 'Obese':
+        categoryColor = AppColors.bmiObese;
+        break;
+      default:
+        categoryColor = colorScheme.primary;
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        padding: const EdgeInsets.all(AppTheme.spacingXxl),
+        decoration: BoxDecoration(
+          color: isDark ? colorScheme.surface : colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(
+            top: Radius.circular(AppTheme.radiusXl),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Handle bar
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: colorScheme.outline.withValues(alpha: 0.3),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacingXxl),
+
+            // BMI value
+            Text(
+              result.bmi.toStringAsFixed(1),
+              style: theme.textTheme.displayLarge?.copyWith(
+                fontSize: 56,
+                fontWeight: FontWeight.w800,
+                color: categoryColor,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacingSm),
+
+            // Category chip
+            Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppTheme.spacingLg,
+                vertical: AppTheme.spacingSm,
+              ),
+              decoration: BoxDecoration(
+                color: categoryColor.withValues(alpha: 0.15),
+                borderRadius: BorderRadius.circular(AppTheme.radiusSm),
+              ),
+              child: Text(
+                result.category,
+                style: theme.textTheme.labelLarge?.copyWith(
+                  color: categoryColor,
+                ),
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacingXxl),
+
+            // BMI scale bar
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 25,
+                    child: Container(
+                      height: 8,
+                      color: AppColors.bmiUnderweight.withValues(alpha: 0.8),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 25,
+                    child: Container(
+                      height: 8,
+                      color: AppColors.bmiNormal.withValues(alpha: 0.8),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 20,
+                    child: Container(
+                      height: 8,
+                      color: AppColors.bmiOverweight.withValues(alpha: 0.8),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 30,
+                    child: Container(
+                      height: 8,
+                      color: AppColors.bmiObese.withValues(alpha: 0.8),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacingSm),
+
+            // Scale labels
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Under', style: theme.textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant)),
+                Text('Normal', style: theme.textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant)),
+                Text('Over', style: theme.textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant)),
+                Text('Obese', style: theme.textTheme.labelSmall?.copyWith(color: AppColors.bmiObese)),
+              ],
+            ),
+            const SizedBox(height: AppTheme.spacingXxl),
+
+            // Health message
+            Text(
+              result.healthMessage,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacingXxl),
+
+            // Close button
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text('Done'),
+              ),
+            ),
+            const SizedBox(height: AppTheme.spacingLg),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ──────────────────────────────────────────────
+// Sub-widgets
+// ──────────────────────────────────────────────
+
+/// Section label matching reference: uppercase, semibold, secondary color.
+class _SectionLabel extends StatelessWidget {
+  final String label;
+  const _SectionLabel({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Text(
+      label,
+      style: theme.textTheme.titleSmall?.copyWith(
+        color: theme.colorScheme.onSurfaceVariant,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+}
+
+/// Unit toggle matching reference: pill-shaped segment control, animated smoothly.
+class _UnitToggle extends StatelessWidget {
+  final bool isMetric;
+  final ValueChanged<bool> onChanged;
+
+  const _UnitToggle({required this.isMetric, required this.onChanged});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      height: 48,
+      padding: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: isDark
+            ? colorScheme.surface
+            : colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(AppTheme.radiusMd),
+        border: isDark
+            ? Border.all(color: colorScheme.outline.withValues(alpha: 0.3))
+            : null,
+      ),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final buttonWidth = constraints.maxWidth / 2;
+          return Stack(
+            children: [
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOutCubic,
+                left: isMetric ? buttonWidth : 0,
+                width: buttonWidth,
+                top: 0,
+                bottom: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: isDark ? colorScheme.primary : colorScheme.surface,
+                    borderRadius: BorderRadius.circular(AppTheme.radiusSm),
+                    boxShadow: [
+                      BoxShadow(
+                        color: (isDark ? colorScheme.primary : Colors.black)
+                            .withValues(alpha: 0.15),
+                        blurRadius: 4,
+                        offset: const Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => onChanged(false),
+                      behavior: HitTestBehavior.opaque,
+                      child: Center(
+                        child: AnimatedDefaultTextStyle(
+                          duration: const Duration(milliseconds: 300),
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: !isMetric
+                                ? (isDark ? Colors.white : colorScheme.primary)
+                                : colorScheme.onSurfaceVariant,
+                            fontWeight: !isMetric ? FontWeight.w600 : FontWeight.w500,
+                          ),
+                          child: const Text('Standard'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => onChanged(true),
+                      behavior: HitTestBehavior.opaque,
+                      child: Center(
+                        child: AnimatedDefaultTextStyle(
+                          duration: const Duration(milliseconds: 300),
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                            color: isMetric
+                                ? (isDark ? Colors.white : colorScheme.primary)
+                                : colorScheme.onSurfaceVariant,
+                            fontWeight: isMetric ? FontWeight.w600 : FontWeight.w500,
+                          ),
+                          child: const Text('Metric'),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+/// Gender selector cards matching the reference design.
+class _GenderSelector extends StatelessWidget {
+  final String selectedGender;
+  final ValueChanged<String> onChanged;
+
+  const _GenderSelector({
+    required this.selectedGender,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: _GenderCard(
+            label: 'Male',
+            icon: Icons.male,
+            iconColor: Theme.of(context).colorScheme.primary,
+            isSelected: selectedGender == 'male',
+            onTap: () => onChanged('male'),
+          ),
+        ),
+        const SizedBox(width: AppTheme.spacingLg),
+        Expanded(
+          child: _GenderCard(
+            label: 'Female',
+            icon: Icons.female,
+            iconColor: AppColors.accentPink,
+            isSelected: selectedGender == 'female',
+            onTap: () => onChanged('female'),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _GenderCard extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final Color iconColor;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _GenderCard({
+    required this.label,
+    required this.icon,
+    required this.iconColor,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: BoxDecoration(
+          color: isDark ? colorScheme.surface : colorScheme.surface,
+          borderRadius: BorderRadius.circular(AppTheme.radiusMd),
+          border: Border.all(
+            color: isSelected
+                ? iconColor
+                : colorScheme.outline.withValues(alpha: 0.3),
+            width: isSelected ? 2 : 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.05),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 40, color: iconColor),
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Styled input field matching reference: rounded, shadow, suffix unit label.
+class _InputField extends StatelessWidget {
+  final TextEditingController controller;
+  final String placeholder;
+  final String suffix;
+  final ValueChanged<String> onChanged;
+  final String? Function(String?)? validator;
+
+  const _InputField({
+    super.key,
+    required this.controller,
+    required this.placeholder,
+    required this.suffix,
+    required this.onChanged,
+    this.validator,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return TextFormField(
+      controller: controller,
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      validator: validator,
+      style: theme.textTheme.bodyLarge?.copyWith(
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
+      ),
+      decoration: InputDecoration(
+        hintText: placeholder,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppTheme.spacingLg,
+          vertical: 18,
+        ),
+        suffixIcon: Padding(
+          padding: const EdgeInsets.only(right: AppTheme.spacingLg),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                suffix,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+        suffixIconConstraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+      ),
+      onChanged: onChanged,
+    );
+  }
+}
+
+/// Info card at the bottom matching the reference blue info box.
+class _InfoCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      padding: const EdgeInsets.all(AppTheme.spacingLg),
+      decoration: BoxDecoration(
+        color: isDark
+            ? AppColors.darkInfoBackground
+            : AppColors.lightInfoBackground,
+        borderRadius: BorderRadius.circular(AppTheme.radiusMd),
+        border: Border.all(
+          color: isDark
+              ? AppColors.darkInfoBorder
+              : AppColors.lightInfoBorder,
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            Icons.info_outline,
+            color: colorScheme.primary,
+            size: 20,
+          ),
+          const SizedBox(width: AppTheme.spacingMd),
+          Expanded(
+            child: Text(
+              'BMI is a useful screening tool, but it does not diagnose body fatness or health. Please consult a healthcare provider for a full assessment.',
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: isDark
+                    ? AppColors.darkInfoText
+                    : AppColors.lightInfoText,
+                height: 1.5,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

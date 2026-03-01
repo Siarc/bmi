@@ -1,0 +1,194 @@
+<html class="dark" lang="en"><head><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-dark text-slate-100 min-h-screen flex flex-col">``` Kranking the design into a dark mode variant.
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Activity Guidelines by Age - Dark Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563eb",
+                        "vibrant-blue": "#3b82f6",
+                        "background-dark": "#0f172a",
+                        "card-dark": "#1e293b",
+                        "inner-card-dark": "#334155",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        :root {
+            --ios-bg: #0f172a;
+        }
+    </style>
+
+
+<header class="sticky top-0 z-50 bg-background-dark/80 backdrop-blur-md border-b border-slate-800">
+<div class="flex items-center justify-between px-4 h-16">
+<button class="flex items-center text-vibrant-blue font-medium">
+<span class="material-symbols-outlined mr-1">arrow_back_ios</span>
+<span>Back</span>
+</button>
+<h1 class="text-lg font-bold tracking-tight text-white">Guidelines</h1>
+<div class="w-16"></div>
+</div>
+</header>
+<main class="flex-1 overflow-y-auto px-4 py-6 space-y-8 pb-32">
+<section>
+<h2 class="text-3xl font-extrabold text-white leading-tight">Activity Guidelines by Age</h2>
+<p class="mt-2 text-slate-400 text-sm leading-relaxed">
+            CDC recommendations for physical activity to maintain optimal cardiovascular health and BMI levels.
+        </p>
+</section>
+<article class="bg-card-dark rounded-xl shadow-xl border border-slate-700/50 overflow-hidden">
+<div class="p-5">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-vibrant-blue/20 rounded-lg">
+<span class="material-symbols-outlined text-vibrant-blue">child_care</span>
+</div>
+<h3 class="text-xl font-bold text-white">Children &amp; Adolescents</h3>
+</div>
+<div class="flex flex-col gap-4">
+<div class="bg-inner-card-dark/40 p-4 rounded-lg border border-slate-700">
+<span class="text-xs font-bold uppercase tracking-wider text-vibrant-blue">Daily Requirement</span>
+<div class="text-4xl font-extrabold mt-1 text-white">60 <span class="text-lg font-semibold text-slate-400">mins</span></div>
+<p class="text-sm mt-1 text-slate-300">Moderate-to-vigorous activity daily.</p>
+</div>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-vibrant-blue text-xl">check_circle</span>
+<div>
+<p class="font-semibold text-sm text-slate-200">Aerobic Activity</p>
+<p class="text-xs text-slate-400">Running or soccer (at least 3 days/week).</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-vibrant-blue text-xl">check_circle</span>
+<div>
+<p class="font-semibold text-sm text-slate-200">Muscle Strengthening</p>
+<p class="text-xs text-slate-400">Climbing or push-ups (3 days/week).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full h-32 bg-cover bg-center brightness-75 grayscale-[0.2]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBURXjbCW8IC_lYD7TmyqdWHs7xWtshRECUQHO7vZ5VPX71qdAVBSLAzQJZqhC5jSF6oEo3zjjsmobBv1blMuovnWcifJZsXl43gsnb1HFC4fcl8jA2-M5AvmYC-UeoVcbHfgttzfJ9UvU30IhXuar70Q4eF__pDoBtKZt4L0B9lr896pib04quPBmfs4UNy9xoQavRx9-EZu-1Mr8Jd_laTaY0BqHAQFVyI4UgdCcTtpE8FSnCYO4COwgYJVcvVOCLlqiwo1pAPHQ')"></div>
+</article>
+<article class="bg-card-dark rounded-xl shadow-xl border border-slate-700/50 overflow-hidden">
+<div class="p-5">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-vibrant-blue/20 rounded-lg">
+<span class="material-symbols-outlined text-vibrant-blue">directions_run</span>
+</div>
+<h3 class="text-xl font-bold text-white">Adults (18-64)</h3>
+</div>
+<div class="flex flex-col gap-4">
+<div class="bg-inner-card-dark/40 p-4 rounded-lg border border-slate-700">
+<span class="text-xs font-bold uppercase tracking-wider text-vibrant-blue">Weekly Requirement</span>
+<div class="text-4xl font-extrabold mt-1 text-white">150 <span class="text-lg font-semibold text-slate-400">mins</span></div>
+<p class="text-sm mt-1 text-slate-300">Moderate-intensity aerobic activity per week.</p>
+</div>
+<div class="grid grid-cols-1 gap-3">
+<div class="p-3 bg-inner-card-dark/20 border border-slate-700 rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-vibrant-blue">fitness_center</span>
+<span class="text-sm font-medium text-slate-200">Muscle Strengthening</span>
+</div>
+<span class="text-xs font-bold bg-vibrant-blue/20 text-vibrant-blue px-2 py-1 rounded">2 Days/Week</span>
+</div>
+<div class="p-3 bg-inner-card-dark/20 border border-slate-700 rounded-lg flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-vibrant-blue">monitor_heart</span>
+<span class="text-sm font-medium text-slate-200">Moderate Aerobic</span>
+</div>
+<span class="text-xs font-bold bg-vibrant-blue/20 text-vibrant-blue px-2 py-1 rounded">Brisk Walk</span>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full h-32 bg-cover bg-center brightness-75 grayscale-[0.2]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB_50DOdEbEJiaACv8PCYCVOukMk8nndsAnj-Bdh2ISnl-aQXout3mBQLwgC2xYOS1HbYzYWlFfncNmgAsfAxVi_Rd71FFf8HuLa4nJDdF-1f_7yaTJgE-8cLNsneL_nLjy9pYJZs0VAC41Fipi7ITp8rxQZ7B2fP5CMBqErOcnxiwBVqxIHZgE8Dw2wytm2Jw0_bo4wY2DZb8HQ2sch1mQPaL9FjCTPMpoir1L0hIuFMKHc5Mlriy3dMXYl9OcQQdBKiKOOcQFpVk')"></div>
+</article>
+<article class="bg-card-dark rounded-xl shadow-xl border border-slate-700/50 overflow-hidden">
+<div class="p-5">
+<div class="flex items-center gap-3 mb-4">
+<div class="p-2 bg-vibrant-blue/20 rounded-lg">
+<span class="material-symbols-outlined text-vibrant-blue">elderly</span>
+</div>
+<h3 class="text-xl font-bold text-white">Older Adults (65+)</h3>
+</div>
+<div class="flex flex-col gap-4">
+<div class="bg-inner-card-dark/40 p-4 rounded-lg border border-slate-700">
+<span class="text-xs font-bold uppercase tracking-wider text-vibrant-blue">Balance &amp; Multi-component</span>
+<div class="text-4xl font-extrabold mt-1 text-white">150 <span class="text-lg font-semibold text-slate-400">mins</span></div>
+<p class="text-sm mt-1 text-slate-300">Weekly aerobic plus balance-focused training.</p>
+</div>
+<div class="bg-vibrant-blue/10 p-4 rounded-lg border-l-4 border-vibrant-blue">
+<p class="text-xs italic text-slate-300">
+                        "Older adults should determine their level of effort for physical activity relative to their level of fitness."
+                    </p>
+</div>
+</div>
+</div>
+<div class="w-full h-32 bg-cover bg-center brightness-75 grayscale-[0.2]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBPVMdMWykOZ-mIUTTh0eXXqMb5vln4a3wFdGEXPGVnWRuvRk62Szvzqn_bGSOSynFlw0PqJPHV6jQnLwUMFPeKc55jULVpHg7vjeUh-6T-o34qAqvEXxsaK89Eo2hnytKLXSwOP_ZemAjs1kUJdB0A8vpFtLBbfMoQgZ2smJyFivj1gNuNUXSfh9eHod2ncagxpj-uugnU84JNMbgM7VcN4bfrEVGGCSo-vyZ138mHT55wT9FTxWi-hpcXMjZOayWWv8qM1w2qwU4')"></div>
+</article>
+<section class="pt-4 pb-6">
+<button class="w-full py-4 bg-vibrant-blue text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 active:scale-[0.98] transition-all hover:bg-blue-500">
+<span class="material-symbols-outlined">add_circle</span>
+            Log Today's Activity
+        </button>
+<p class="text-center text-[10px] text-slate-500 mt-6 uppercase tracking-widest">
+            Source: Centers for Disease Control and Prevention (CDC)
+        </p>
+</section>
+</main>
+<nav class="fixed bottom-0 left-0 right-0 bg-slate-900/90 backdrop-blur-xl border-t border-slate-800 px-6 pb-8 pt-3 z-50">
+<div class="flex items-center justify-between max-w-md mx-auto">
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-vibrant-blue transition-colors">calculate</span>
+<span class="text-[10px] font-bold text-slate-500 group-hover:text-vibrant-blue uppercase tracking-tighter">Calculator</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-vibrant-blue transition-colors">history</span>
+<span class="text-[10px] font-bold text-slate-500 group-hover:text-vibrant-blue uppercase tracking-tighter">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-vibrant-blue fill-1">auto_stories</span>
+<span class="text-[10px] font-bold text-vibrant-blue uppercase tracking-tighter">Resources</span>
+</a>
+<a class="flex flex-col items-center gap-1 group" href="#">
+<span class="material-symbols-outlined text-slate-500 group-hover:text-vibrant-blue transition-colors">settings</span>
+<span class="text-[10px] font-bold text-slate-500 group-hover:text-vibrant-blue uppercase tracking-tighter">Settings</span>
+</a>
+</div>
+</nav>
+
+</body></html>
