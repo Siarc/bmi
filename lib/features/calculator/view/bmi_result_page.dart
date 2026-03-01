@@ -207,19 +207,19 @@ class BmiResultPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: _MetricCard(
-                    icon: Icons.monitor_weight_outlined,
                     label: 'IDEAL WEIGHT',
                     value: idealWeightStr,
                     unit: weightUnitStr,
+                    infoText: 'Ideal Body Weight (IBW) is the weight range considered healthy for your height. It is calculated using the healthy BMI range of 18.5 to 25.0 kg/m².',
                   ),
                 ),
                 const SizedBox(width: AppTheme.spacingLg),
                 Expanded(
                   child: _MetricCard(
-                    icon: Icons.analytics_outlined,
                     label: 'PONDERAL INDEX',
                     value: piStr,
                     unit: 'kg/m³',
+                    infoText: 'The Ponderal Index (PI) is a measure of leanness of a person. Unlike BMI, which uses height squared (m²), PI uses height cubed (m³), making it more accurate for very short or very tall individuals.',
                   ),
                 ),
               ],
@@ -364,17 +364,82 @@ class BmiResultPage extends StatelessWidget {
 }
 
 class _MetricCard extends StatelessWidget {
-  final IconData icon;
   final String label;
   final String value;
   final String unit;
+  final String infoText;
 
   const _MetricCard({
-    required this.icon,
     required this.label,
     required this.value,
     required this.unit,
+    required this.infoText,
   });
+
+  void _showInfoOverlay(BuildContext context, String title, String content) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        insetPadding: const EdgeInsets.symmetric(horizontal: AppTheme.spacingXl),
+        child: Container(
+          padding: const EdgeInsets.all(AppTheme.spacingXl),
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              )
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                    padding: EdgeInsets.zero,
+                    constraints: const BoxConstraints(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: AppTheme.spacingLg),
+              Text(
+                content,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  height: 1.5,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: AppTheme.spacingLg),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Got it'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -394,15 +459,26 @@ class _MetricCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(icon, size: 20, color: colorScheme.primary),
-              const SizedBox(width: AppTheme.spacingSm),
               Text(
                 label,
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: colorScheme.onSurfaceVariant,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.0,
+                ),
+              ),
+              InkWell(
+                onTap: () => _showInfoOverlay(context, label, infoText),
+                borderRadius: BorderRadius.circular(20),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(
+                    Icons.info_outline,
+                    size: 16,
+                    color: colorScheme.primary,
+                  ),
                 ),
               ),
             ],
