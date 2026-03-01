@@ -3,7 +3,6 @@ import '../models/bmi_result.dart';
 
 /// State for the BMI Calculator BLoC.
 class CalculatorState extends Equatable {
-  final String gender;
   final int age;
   final int heightFeet;
   final int heightInches;
@@ -13,9 +12,7 @@ class CalculatorState extends Equatable {
   final bool isMetric;
   final BmiResult? result;
   final bool isCalculating;
-
   const CalculatorState({
-    this.gender = 'male',
     this.age = 0,
     this.heightFeet = 0,
     this.heightInches = 0,
@@ -57,7 +54,6 @@ class CalculatorState extends Equatable {
   }
 
   CalculatorState copyWith({
-    String? gender,
     int? age,
     int? heightFeet,
     int? heightInches,
@@ -70,7 +66,6 @@ class CalculatorState extends Equatable {
     bool clearResult = false,
   }) {
     return CalculatorState(
-      gender: gender ?? this.gender,
       age: age ?? this.age,
       heightFeet: heightFeet ?? this.heightFeet,
       heightInches: heightInches ?? this.heightInches,
@@ -85,7 +80,6 @@ class CalculatorState extends Equatable {
 
   @override
   List<Object?> get props => [
-        gender,
         age,
         heightFeet,
         heightInches,

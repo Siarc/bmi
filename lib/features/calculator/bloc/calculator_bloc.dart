@@ -7,7 +7,6 @@ import 'calculator_state.dart';
 /// Handles all calculator input changes and BMI computation.
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   CalculatorBloc() : super(const CalculatorState()) {
-    on<GenderChanged>(_onGenderChanged);
     on<AgeChanged>(_onAgeChanged);
     on<HeightFeetChanged>(_onHeightFeetChanged);
     on<HeightInchesChanged>(_onHeightInchesChanged);
@@ -17,10 +16,6 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     on<UnitSystemChanged>(_onUnitSystemChanged);
     on<CalculateBmiRequested>(_onCalculateBmi);
     on<CalculatorReset>(_onReset);
-  }
-
-  void _onGenderChanged(GenderChanged event, Emitter<CalculatorState> emit) {
-    emit(state.copyWith(gender: event.gender, clearResult: true));
   }
 
   void _onAgeChanged(AgeChanged event, Emitter<CalculatorState> emit) {
@@ -119,7 +114,6 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
       bmi: bmi,
       category: category,
       date: DateTime.now(),
-      gender: state.gender,
       age: state.age,
     );
 

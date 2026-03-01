@@ -8,14 +8,7 @@ abstract class CalculatorEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-/// User updated gender selection.
-class GenderChanged extends CalculatorEvent {
-  final String gender;
-  const GenderChanged(this.gender);
 
-  @override
-  List<Object?> get props => [gender];
-}
 
 /// User updated age.
 class AgeChanged extends CalculatorEvent {

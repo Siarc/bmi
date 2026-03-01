@@ -119,16 +119,7 @@ class _CalculatorViewState extends State<_CalculatorView> {
                 ),
                 const SizedBox(height: AppTheme.spacingXxl),
 
-                // Gender selector
-                _SectionLabel(label: 'Gender'),
-                const SizedBox(height: AppTheme.spacingMd),
-                _GenderSelector(
-                  selectedGender: state.gender,
-                  onChanged: (gender) {
-                    context.read<CalculatorBloc>().add(GenderChanged(gender));
-                  },
-                ),
-                const SizedBox(height: AppTheme.spacingXxl),
+
 
                 // Age input
                 _SectionLabel(label: 'Age'),
@@ -589,104 +580,7 @@ class _UnitToggle extends StatelessWidget {
   }
 }
 
-/// Gender selector cards matching the reference design.
-class _GenderSelector extends StatelessWidget {
-  final String selectedGender;
-  final ValueChanged<String> onChanged;
 
-  const _GenderSelector({
-    required this.selectedGender,
-    required this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: _GenderCard(
-            label: 'Male',
-            icon: Icons.male,
-            iconColor: Theme.of(context).colorScheme.primary,
-            isSelected: selectedGender == 'male',
-            onTap: () => onChanged('male'),
-          ),
-        ),
-        const SizedBox(width: AppTheme.spacingLg),
-        Expanded(
-          child: _GenderCard(
-            label: 'Female',
-            icon: Icons.female,
-            iconColor: AppColors.accentPink,
-            isSelected: selectedGender == 'female',
-            onTap: () => onChanged('female'),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _GenderCard extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final Color iconColor;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  const _GenderCard({
-    required this.label,
-    required this.icon,
-    required this.iconColor,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final isDark = theme.brightness == Brightness.dark;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        decoration: BoxDecoration(
-          color: isDark ? colorScheme.surface : colorScheme.surface,
-          borderRadius: BorderRadius.circular(AppTheme.radiusMd),
-          border: Border.all(
-            color: isSelected
-                ? iconColor
-                : colorScheme.outline.withValues(alpha: 0.3),
-            width: isSelected ? 2 : 1,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.05),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 40, color: iconColor),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 /// Styled input field matching reference: rounded, shadow, suffix unit label.
 class _InputField extends StatelessWidget {
@@ -780,7 +674,7 @@ class _InfoCard extends StatelessWidget {
           const SizedBox(width: AppTheme.spacingMd),
           Expanded(
             child: Text(
-              'BMI is a useful screening tool, but it does not diagnose body fatness or health. Please consult a healthcare provider for a full assessment.',
+              'BMI is a general screening tool, not a perfect measure. Both men and women use the same BMI formula and categories. However, it does not consider muscle mass, fat distribution, or bone density. Please consult a healthcare provider for a localized assessment.',
               style: theme.textTheme.bodySmall?.copyWith(
                 color: isDark
                     ? AppColors.darkInfoText

@@ -8,7 +8,6 @@ class BmiResult extends Equatable {
   final double bmi;
   final String category;
   final DateTime date;
-  final String gender;
   final int age;
 
   const BmiResult({
@@ -17,7 +16,6 @@ class BmiResult extends Equatable {
     required this.bmi,
     required this.category,
     required this.date,
-    required this.gender,
     required this.age,
   });
 
@@ -53,5 +51,5 @@ class BmiResult extends Equatable {
   }
 
   @override
-  List<Object?> get props => [height, weight, bmi, category, date, gender, age];
+  List<Object?> get props => [height, weight, bmi, category, date, age];
 }
