@@ -1,4 +1,4 @@
-import 'dart:math';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +9,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 import '../bloc/calculator_bloc.dart';
 import '../bloc/calculator_event.dart';
+import 'widgets/bmi_gauge.dart';
 
 class BmiResultPage extends StatelessWidget {
   const BmiResultPage({super.key});
@@ -133,8 +134,8 @@ class BmiResultPage extends StatelessWidget {
 
                   // Custom Gauge
                   SizedBox(
-                    height: 120,
-                    child: _BmiGauge(bmi: result.bmi),
+                    height: 180,
+                    child: BmiGauge(bmi: result.bmi),
                   ),
                   const SizedBox(height: AppTheme.spacingLg),
 
@@ -565,209 +566,4 @@ class _ResourceLinkCard extends StatelessWidget {
   }
 }
 
-// Custom Gauge Implementation
-class _BmiGauge extends StatelessWidget {
-  final double bmi;
-  const _BmiGauge({this.bmi = 23.0});
 
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            // Custom drawn semi-circle gradient and gauge
-            CustomPaint(
-              size: Size(constraints.maxWidth, constraints.maxHeight),
-              painter: _GaugePainter(),
-            ),
-            
-            // Labels specific to WHO scale
-            Positioned(bottom: 0, left: 0, child: _Label('15')),
-            Positioned(top: 10, left: 30, child: _Label('18.5')),
-            Positioned(top: -15, child: _Label('25')),
-            Positioned(top: 10, right: 30, child: _Label('30')),
-            Positioned(bottom: 0, right: 0, child: _Label('40')),
-
-            // Animated needle
-            _GaugeNeedle(bmi: bmi),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _Label extends StatelessWidget {
-  final String text;
-  const _Label(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Text(
-      text,
-      style: theme.textTheme.labelSmall?.copyWith(
-        color: theme.colorScheme.onSurfaceVariant,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-}
-
-class _GaugePainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromCircle(
-      center: Offset(size.width / 2, size.height),
-      radius: size.height,
-    );
-
-    // We only need the top half of the circle
-    final startAngle = pi;
-    final sweepAngle = pi;
-
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 32
-      ..strokeCap = StrokeCap.butt;
-
-    // Gradient based on typical distribution shown in the HTML design:
-    paint.shader = SweepGradient(
-      startAngle: pi,
-      endAngle: 2 * pi,
-      colors: [
-        AppColors.bmiUnderweight,
-        AppColors.bmiUnderweight,
-        AppColors.bmiNormal,
-        AppColors.bmiNormal,
-        AppColors.bmiOverweight,
-        AppColors.bmiOverweight,
-        AppColors.bmiObese,
-        AppColors.bmiObese,
-      ],
-      stops: const [
-        0.0,
-        0.14,
-        0.14,
-        0.40,
-        0.40,
-        0.60,
-        0.60,
-        1.0,
-      ],
-      transform: const GradientRotation(pi),
-    ).createShader(rect);
-
-    canvas.drawArc(rect, startAngle, sweepAngle, false, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class _GaugeNeedle extends StatefulWidget {
-  final double bmi;
-  const _GaugeNeedle({required this.bmi});
-
-  @override
-  State<_GaugeNeedle> createState() => _GaugeNeedleState();
-}
-
-class _GaugeNeedleState extends State<_GaugeNeedle>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 1500),
-    );
-
-    final angle = _calculateAngle(widget.bmi);
-    
-    _animation = Tween<double>(begin: -pi / 2, end: angle).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-    );
-
-    _controller.forward();
-  }
-
-  double _calculateAngle(double bmi) {
-    // Math to position needle between 15 and 40
-    // Returns angle between -pi/2 (left) and pi/2 (right) where 0 is vertical top
-    final limitBmi = bmi.clamp(15.0, 40.0);
-    final percentage = (limitBmi - 15.0) / 25.0; // 0.0 to 1.0
-    return (-pi / 2) + (percentage * pi);
-  }
-
-  @override
-  void didUpdateWidget(covariant _GaugeNeedle oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.bmi != widget.bmi) {
-      final angle = _calculateAngle(widget.bmi);
-      _animation = Tween<double>(begin: _animation.value, end: angle).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-      );
-      _controller.forward(from: 0.0);
-    }
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    final needleColor = isDark ? Colors.white : theme.colorScheme.onSurface;
-
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Transform.rotate(
-          angle: _animation.value,
-          alignment: Alignment.bottomCenter,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 4,
-                height: 90,
-                decoration: BoxDecoration(
-                  color: needleColor,
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(2)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: needleColor.withValues(alpha: 0.5),
-                      blurRadius: 10,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: 16,
-                height: 16,
-                decoration: BoxDecoration(
-                  color: needleColor,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: theme.scaffoldBackgroundColor,
-                    width: 4,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
