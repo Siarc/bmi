@@ -57,13 +57,15 @@ class BmiResultPage extends StatelessWidget {
       case 'Underweight':
         categoryColor = AppColors.bmiUnderweight;
         break;
-      case 'Normal':
+      case 'Healthy Weight':
         categoryColor = AppColors.bmiNormal;
         break;
       case 'Overweight':
         categoryColor = AppColors.bmiOverweight;
         break;
-      case 'Obese':
+      case 'Class 1 Obesity':
+      case 'Class 2 Obesity':
+      case 'Class 3 Obesity':
         categoryColor = AppColors.bmiObese;
         break;
       default:
@@ -262,9 +264,9 @@ class BmiResultPage extends StatelessWidget {
                     color: AppColors.bmiUnderweight,
                   ),
                   _ClassificationRow(
-                    category: 'Normal',
+                    category: 'Healthy Weight',
                     range: '18.5 - 25',
-                    isActive: result.category == 'Normal',
+                    isActive: result.category == 'Healthy Weight',
                     color: AppColors.bmiNormal,
                   ),
                   _ClassificationRow(
@@ -274,9 +276,21 @@ class BmiResultPage extends StatelessWidget {
                     color: AppColors.bmiOverweight,
                   ),
                   _ClassificationRow(
-                    category: 'Obese',
-                    range: '> 30',
-                    isActive: result.category == 'Obese',
+                    category: 'Class 1 Obesity',
+                    range: '30 - 35',
+                    isActive: result.category == 'Class 1 Obesity',
+                    color: AppColors.bmiObese,
+                  ),
+                  _ClassificationRow(
+                    category: 'Class 2 Obesity',
+                    range: '35 - 40',
+                    isActive: result.category == 'Class 2 Obesity',
+                    color: AppColors.bmiObese,
+                  ),
+                  _ClassificationRow(
+                    category: 'Class 3 Obesity',
+                    range: '> 40',
+                    isActive: result.category == 'Class 3 Obesity',
                     color: AppColors.bmiObese,
                   ),
                 ],

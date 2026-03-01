@@ -26,12 +26,14 @@ class BmiResult extends Equatable {
     return weightKg / (heightM * heightM);
   }
 
-  /// Determine BMI category based on WHO standards.
+  /// Determine BMI category based on clinical standards.
   static String getCategory(double bmi) {
     if (bmi < 18.5) return 'Underweight';
-    if (bmi < 25.0) return 'Normal';
+    if (bmi < 25.0) return 'Healthy Weight';
     if (bmi < 30.0) return 'Overweight';
-    return 'Obese';
+    if (bmi < 35.0) return 'Class 1 Obesity';
+    if (bmi < 40.0) return 'Class 2 Obesity';
+    return 'Class 3 Obesity';
   }
 
   /// Get a health message based on BMI category.
@@ -39,12 +41,16 @@ class BmiResult extends Equatable {
     switch (category) {
       case 'Underweight':
         return 'You are underweight. Consider consulting a healthcare provider about a balanced nutrition plan.';
-      case 'Normal':
+      case 'Healthy Weight':
         return 'Great! You have a healthy weight. Keep maintaining your balanced lifestyle.';
       case 'Overweight':
         return 'You are slightly overweight. Small changes in diet and activity can help.';
-      case 'Obese':
-        return 'Your BMI indicates obesity. Please consult a healthcare provider for a personalized plan.';
+      case 'Class 1 Obesity':
+        return 'Your BMI indicates Class 1 obesity. Consider consulting a healthcare provider for personalized guidance.';
+      case 'Class 2 Obesity':
+        return 'Your BMI indicates Class 2 obesity. Focus on nutrition and exercise, and consult a professional.';
+      case 'Class 3 Obesity':
+        return 'You fall into the Class 3 (Severe) Obesity category. Please seek medical advice to manage potential health risks.';
       default:
         return '';
     }
