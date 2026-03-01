@@ -91,12 +91,18 @@ class _BmiGaugePainter extends CustomPainter {
     final isDark = theme.brightness == Brightness.dark;
     
     // Geometry
-    final center = Offset(size.width / 2, size.height - 10);
-    // Allow space for labels outside the gauge
-    final radius = size.height - 35; 
-    final rect = Rect.fromCircle(center: center, radius: radius);
-
     final strokeWidth = 32.0;
+    final labelPadding = 24.0; // Extra room for labels text
+    
+    // We need to ensure labels (radius + strokeWidth/2 + 18 + textWidth/2) fit in width
+    // And center.dy - (radius + strokeWidth/2 + 18) >= 0 for top labels
+    
+    final maxRByWidth = (size.width / 2) - (strokeWidth / 2) - labelPadding;
+    final maxRByHeight = (size.height - 10) - (strokeWidth / 2) - labelPadding;
+    
+    final radius = min(maxRByWidth, maxRByHeight).clamp(50.0, 200.0);
+    final center = Offset(size.width / 2, size.height - 10);
+    final rect = Rect.fromCircle(center: center, radius: radius);
 
     final shaderPaint = Paint()
       ..style = PaintingStyle.stroke
@@ -161,7 +167,7 @@ class _BmiGaugePainter extends CustomPainter {
         Offset(x1, y1), 
         Offset(x2, y2), 
         Paint()
-          ..color = theme.scaffoldBackgroundColor
+          ..color = theme.colorScheme.surface
           ..strokeWidth = 3
           ..strokeCap = StrokeCap.round
       );
