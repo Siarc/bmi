@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import '../../../core/routing/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 import '../bloc/calculator_bloc.dart';
 import '../bloc/calculator_event.dart';
 import '../bloc/calculator_state.dart';
-import '../models/bmi_result.dart';
 
 /// Calculator Page — main BMI input screen.
 /// Matches the reference Stitch design for both light and dark themes.
@@ -36,7 +37,17 @@ class _CalculatorViewState extends State<_CalculatorView> {
   @override
   void initState() {
     super.initState();
-    _lastIsMetric = context.read<CalculatorBloc>().state.isMetric;
+    final state = context.read<CalculatorBloc>().state;
+    _lastIsMetric = state.isMetric;
+    
+    // Initialize controllers with current state values
+    _ageController.text = state.age > 0 ? state.age.toString() : '';
+    _heightCmController.text = state.heightCm > 0 ? state.heightCm.toString() : '';
+    _heightFeetController.text = state.heightFeet > 0 ? state.heightFeet.toString() : '';
+    _heightInchesController.text = state.heightInches > 0 ? state.heightInches.toString() : '';
+    _weightController.text = state.isMetric 
+        ? (state.weightKg > 0 ? state.weightKg.toString() : '')
+        : (state.weightLbs > 0 ? state.weightLbs.toString() : '');
   }
 
   @override
@@ -68,8 +79,8 @@ class _CalculatorViewState extends State<_CalculatorView> {
       ),
       body: BlocConsumer<CalculatorBloc, CalculatorState>(
         listener: (context, state) {
-          if (state.result != null) {
-            _showResultSheet(context, state.result!);
+          if (state.result != null && state.isCalculating == false) {
+             context.push(AppRouter.resultPath);
           }
           
           // Sync controllers on unit toggle
@@ -83,6 +94,15 @@ class _CalculatorViewState extends State<_CalculatorView> {
               _heightInchesController.text = state.heightInches > 0 ? state.heightInches.toString() : '';
               _weightController.text = state.weightLbs > 0 ? state.weightLbs.toString() : '';
             }
+          }
+
+          // Handle full reset (triggered from New Calculation button)
+          if (state.age == 0 && state.heightCm == 0 && state.weightKg == 0) {
+            _ageController.clear();
+            _heightCmController.clear();
+            _heightFeetController.clear();
+            _heightInchesController.clear();
+            _weightController.clear();
           }
         },
         builder: (context, state) {
@@ -298,161 +318,6 @@ class _CalculatorViewState extends State<_CalculatorView> {
             ),
           );
         },
-      ),
-    );
-  }
-
-  void _showResultSheet(BuildContext context, BmiResult result) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final isDark = theme.brightness == Brightness.dark;
-
-    // Get category color from AppColors
-    Color categoryColor;
-    switch (result.category) {
-      case 'Underweight':
-        categoryColor = AppColors.bmiUnderweight;
-        break;
-      case 'Normal':
-        categoryColor = AppColors.bmiNormal;
-        break;
-      case 'Overweight':
-        categoryColor = AppColors.bmiOverweight;
-        break;
-      case 'Obese':
-        categoryColor = AppColors.bmiObese;
-        break;
-      default:
-        categoryColor = colorScheme.primary;
-    }
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (ctx) => Container(
-        padding: const EdgeInsets.all(AppTheme.spacingXxl),
-        decoration: BoxDecoration(
-          color: isDark ? colorScheme.surface : colorScheme.surface,
-          borderRadius: const BorderRadius.vertical(
-            top: Radius.circular(AppTheme.radiusXl),
-          ),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Handle bar
-            Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: colorScheme.outline.withValues(alpha: 0.3),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const SizedBox(height: AppTheme.spacingXxl),
-
-            // BMI value
-            Text(
-              result.bmi.toStringAsFixed(1),
-              style: theme.textTheme.displayLarge?.copyWith(
-                fontSize: 56,
-                fontWeight: FontWeight.w800,
-                color: categoryColor,
-              ),
-            ),
-            const SizedBox(height: AppTheme.spacingSm),
-
-            // Category chip
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppTheme.spacingLg,
-                vertical: AppTheme.spacingSm,
-              ),
-              decoration: BoxDecoration(
-                color: categoryColor.withValues(alpha: 0.15),
-                borderRadius: BorderRadius.circular(AppTheme.radiusSm),
-              ),
-              child: Text(
-                result.category,
-                style: theme.textTheme.labelLarge?.copyWith(
-                  color: categoryColor,
-                ),
-              ),
-            ),
-            const SizedBox(height: AppTheme.spacingXxl),
-
-            // BMI scale bar
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: Row(
-                children: [
-                  Expanded(
-                    flex: 25,
-                    child: Container(
-                      height: 8,
-                      color: AppColors.bmiUnderweight.withValues(alpha: 0.8),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 25,
-                    child: Container(
-                      height: 8,
-                      color: AppColors.bmiNormal.withValues(alpha: 0.8),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 20,
-                    child: Container(
-                      height: 8,
-                      color: AppColors.bmiOverweight.withValues(alpha: 0.8),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 30,
-                    child: Container(
-                      height: 8,
-                      color: AppColors.bmiObese.withValues(alpha: 0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppTheme.spacingSm),
-
-            // Scale labels
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Under', style: theme.textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant)),
-                Text('Normal', style: theme.textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant)),
-                Text('Over', style: theme.textTheme.labelSmall?.copyWith(color: colorScheme.onSurfaceVariant)),
-                Text('Obese', style: theme.textTheme.labelSmall?.copyWith(color: AppColors.bmiObese)),
-              ],
-            ),
-            const SizedBox(height: AppTheme.spacingXxl),
-
-            // Health message
-            Text(
-              result.healthMessage,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-              ),
-            ),
-            const SizedBox(height: AppTheme.spacingXxl),
-
-            // Close button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: const Text('Done'),
-              ),
-            ),
-            const SizedBox(height: AppTheme.spacingLg),
-          ],
-        ),
       ),
     );
   }

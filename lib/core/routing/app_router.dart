@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../features/calculator/view/calculator_page.dart';
+import '../../features/calculator/view/bmi_result_page.dart';
 import '../../features/resources/view/resources_page.dart';
 import '../../features/settings/view/settings_page.dart';
 import '../../shared/widgets/app_shell.dart';
@@ -15,6 +16,7 @@ class AppRouter {
 
   /// Named routes
   static const String calculatorPath = '/calculator';
+  static const String resultPath = '/result';
   static const String resourcesPath = '/resources';
   static const String settingsPath = '/settings';
 
@@ -52,6 +54,15 @@ class AppRouter {
             ),
           ),
         ],
+      ),
+
+      /// Result page uses the root navigator so it covers the shell
+      /// (no bottom navigation bar is shown on the result screen).
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: resultPath,
+        name: 'result',
+        builder: (context, state) => const BmiResultPage(),
       ),
     ],
   );

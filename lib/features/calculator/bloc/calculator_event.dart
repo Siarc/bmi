@@ -78,7 +78,13 @@ class CalculateBmiRequested extends CalculatorEvent {
   const CalculateBmiRequested();
 }
 
-/// Reset calculator to initial state.
+/// Reset calculator to initial state (wipes all inputs).
 class CalculatorReset extends CalculatorEvent {
   const CalculatorReset();
+}
+
+/// Clears the BMI result object but preserves user inputs.
+/// Used when navigating back from result to calculator page.
+class ClearBmiResult extends CalculatorEvent {
+  const ClearBmiResult();
 }

@@ -16,6 +16,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     on<UnitSystemChanged>(_onUnitSystemChanged);
     on<CalculateBmiRequested>(_onCalculateBmi);
     on<CalculatorReset>(_onReset);
+    on<ClearBmiResult>(_onClearBmiResult);
   }
 
   void _onAgeChanged(AgeChanged event, Emitter<CalculatorState> emit) {
@@ -122,5 +123,9 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
 
   void _onReset(CalculatorReset event, Emitter<CalculatorState> emit) {
     emit(const CalculatorState());
+  }
+
+  void _onClearBmiResult(ClearBmiResult event, Emitter<CalculatorState> emit) {
+    emit(state.copyWith(clearResult: true));
   }
 }
