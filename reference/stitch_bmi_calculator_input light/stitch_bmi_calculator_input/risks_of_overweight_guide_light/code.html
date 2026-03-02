@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#137fec",
+                "background-light": "#f6f7f8",
+                "background-dark": "#101922",
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+            },
+          },
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .font-fill {
+          font-variation-settings: 'FILL' 1;
+        }
+    </style>
+    <style>
+        body {
+          min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex min-h-screen w-full flex-col bg-background-light dark:bg-background-dark overflow-x-hidden max-w-[430px] mx-auto shadow-2xl">
+    <div class="sticky top-0 z-20 flex items-center bg-white/90 dark:bg-background-dark/90 backdrop-blur-md p-4 border-b border-slate-200 dark:border-slate-800 justify-between">
+        <div class="text-primary flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-primary/10 transition-colors cursor-pointer">
+            <span class="material-symbols-outlined">arrow_back</span>
+        </div>
+        <h1 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center pr-10">Risks of Overweight Guide</h1>
+    </div>
+    <div class="flex-1 overflow-y-auto pb-24">
+        <div class="p-4">
+            <div class="relative w-full aspect-video bg-slate-200 dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm group">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+                <img alt="Medical professional explaining health risks" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoh5KdBOX9C_Viw_HxLIoAat5ahEvO4yLMgjWQA1MrbPvHdeV7ovk_1nNGsXbBZxUbFy2zHJZks62nomwS1w7xcUVrJWaSN41_K6MxDjdRlV8yCc05g_O35ieULm5iDwoijBQvzJt85h9O1GNXQIlL-QhaXxZqMYI-LU-T41LIQ0GCi6FdiktCqNejBRHw7WYXALPJHOoQYfzSqGZBbC5xG5zrSZ2g24DYXerofsh9LrrD5G1v7qRvvV1Pi_Vqhs799A7DzhOC1F8"/>
+                <div class="absolute bottom-4 left-4 z-20">
+                    <h2 class="text-white text-2xl font-bold leading-tight">Risks of Being Overweight</h2>
+                    <p class="text-white/80 text-sm">Understanding the medical impact of BMI</p>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 py-4">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary text-2xl">favorite</span>
+                <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Cardiovascular &amp; Metabolic</h2>
+            </div>
+            <div class="grid gap-3">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-start gap-3">
+                        <div class="bg-red-100 dark:bg-red-900/30 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-red-600 dark:text-red-400">blood_pressure</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 dark:text-white">Hypertension</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">High blood pressure increases heart workload and damages arteries over time.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-start gap-3">
+                        <div class="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">labs</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 dark:text-white">Dyslipidemia</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Abnormal levels of blood fats like LDL cholesterol and triglycerides.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                    <div class="flex items-start gap-3">
+                        <div class="bg-orange-100 dark:bg-orange-900/30 p-2 rounded-lg">
+                            <span class="material-symbols-outlined text-orange-600 dark:text-orange-400">glucose</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-slate-900 dark:text-white">Type 2 Diabetes</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mt-1">Insulin resistance caused by excess adipose tissue affecting glucose regulation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 py-4">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary text-2xl">accessibility_new</span>
+                <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Physical &amp; Structural</h2>
+            </div>
+            <div class="bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 divide-y divide-slate-100 dark:divide-slate-700 overflow-hidden shadow-sm">
+                <div class="p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-slate-500">skeleton</span>
+                        <span class="font-medium">Osteoarthritis</span>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-400 text-sm">info</span>
+                </div>
+                <div class="p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-slate-500">air</span>
+                        <span class="font-medium">Sleep Apnea</span>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-400 text-sm">info</span>
+                </div>
+                <div class="p-4 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-slate-500">medication_liquid</span>
+                        <span class="font-medium">Gallbladder Disease</span>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-400 text-sm">info</span>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 py-4">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary text-2xl">biotech</span>
+                <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Systemic Risks</h2>
+            </div>
+            <div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 p-4 rounded-xl">
+                <ul class="space-y-3">
+                    <li class="flex gap-3">
+                        <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                        <p class="text-sm text-slate-700 dark:text-slate-300"><span class="font-bold">Cancer Risk:</span> Increased risk of breast, colon, and kidney cancers.</p>
+                    </li>
+                    <li class="flex gap-3">
+                        <span class="material-symbols-outlined text-primary text-xl">check_circle</span>
+                        <p class="text-sm text-slate-700 dark:text-slate-300"><span class="font-bold">Chronic Inflammation:</span> Fat cells produce pro-inflammatory cytokines.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="px-4 py-4">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary text-2xl">psychology</span>
+                <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Mental Health &amp; Lifestyle</h2>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 text-center shadow-sm">
+                    <span class="material-symbols-outlined text-indigo-500 text-3xl mb-2">mood_bad</span>
+                    <p class="text-sm font-semibold">Depression &amp; Anxiety</p>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 text-center shadow-sm">
+                    <span class="material-symbols-outlined text-amber-500 text-3xl mb-2">timer_off</span>
+                    <p class="text-sm font-semibold">Quality of Life</p>
+                </div>
+            </div>
+        </div>
+        <div class="px-4 py-4">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="material-symbols-outlined text-primary text-2xl">help_outline</span>
+                <h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Self-Reflection Questions</h2>
+            </div>
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                <ul class="space-y-4">
+                    <li class="flex gap-3 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl mt-0.5">check_box</span>
+                        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">Do I find myself getting out of breath during activities that used to feel easy?</p>
+                    </li>
+                    <li class="flex gap-3 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl mt-0.5">check_box</span>
+                        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">Am I experiencing persistent pain in my knees, hips, or lower back?</p>
+                    </li>
+                    <li class="flex gap-3 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl mt-0.5">check_box</span>
+                        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">Do I frequently feel sluggish or crashing after meals?</p>
+                    </li>
+                    <li class="flex gap-3 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl mt-0.5">check_box</span>
+                        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">Has anyone told me that I snore loudly or seem to stop breathing in my sleep?</p>
+                    </li>
+                    <li class="flex gap-3 items-start">
+                        <span class="material-symbols-outlined text-primary text-xl mt-0.5">check_box</span>
+                        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">Am I eating to satisfy physical hunger, or to manage emotions?</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="px-4 py-6">
+            <div class="bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 p-5 rounded-2xl shadow-lg">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="material-symbols-outlined">warning</span>
+                    <h3 class="font-bold text-lg">A Note on BMI</h3>
+                </div>
+                <p class="text-sm opacity-90 leading-relaxed">
+                    BMI is a screening tool, not a diagnostic one. It does not measure body fat directly and cannot distinguish between fat and muscle mass. Consult a healthcare provider for a complete clinical assessment.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md px-4 pb-6 pt-2 z-30">
+        <div class="flex justify-between items-center">
+            <a class="flex flex-1 flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+                <span class="material-symbols-outlined">calculate</span>
+                <p class="text-[10px] font-semibold uppercase tracking-wider">Calculator</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+                <span class="material-symbols-outlined">history</span>
+                <p class="text-[10px] font-semibold uppercase tracking-wider">History</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center gap-1 text-primary" href="#">
+                <span class="material-symbols-outlined font-fill">menu_book</span>
+                <p class="text-[10px] font-semibold uppercase tracking-wider">Resources</p>
+            </a>
+            <a class="flex flex-1 flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <p class="text-[10px] font-semibold uppercase tracking-wider">Settings</p>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body></html>
