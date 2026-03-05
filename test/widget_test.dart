@@ -10,10 +10,14 @@ void main() {
     });
 
     test('getCategory returns correct category', () {
-      expect(BmiResult.getCategory(17.0), 'Underweight');
+      expect(BmiResult.getCategory(15.0), 'Severe Thinness');
+      expect(BmiResult.getCategory(16.5), 'Moderate Thinness');
+      expect(BmiResult.getCategory(18.0), 'Mild Thinness');
       expect(BmiResult.getCategory(22.0), 'Normal');
       expect(BmiResult.getCategory(27.0), 'Overweight');
-      expect(BmiResult.getCategory(35.0), 'Obese');
+      expect(BmiResult.getCategory(32.0), 'Obese Class I');
+      expect(BmiResult.getCategory(37.0), 'Obese Class II');
+      expect(BmiResult.getCategory(45.0), 'Obese Class III');
     });
 
     test('calculateBmi returns 0 for invalid input', () {

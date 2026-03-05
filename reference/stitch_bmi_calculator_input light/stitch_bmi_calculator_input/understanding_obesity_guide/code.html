@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Understanding Obesity Guide</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+    <!-- Main Mobile Container -->
+    <div
+        class="relative mx-auto min-h-screen max-w-[430px] bg-white dark:bg-slate-900 pb-24 shadow-2xl overflow-x-hidden">
+        <!-- Header -->
+        <header
+            class="sticky top-0 z-10 flex items-center bg-white/90 dark:bg-slate-900/90 px-4 py-4 backdrop-blur-md border-b border-slate-100 dark:border-slate-800">
+            <button
+                class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back_ios_new</span>
+            </button>
+            <h1 class="flex-1 text-center text-lg font-bold tracking-tight pr-10">Understanding Obesity</h1>
+        </header>
+        <!-- Hero Section -->
+        <section class="p-4">
+            <div class="relative h-48 w-full overflow-hidden rounded-xl bg-primary/10">
+                <div class="absolute inset-0 bg-cover bg-center"
+                    data-alt="Healthy lifestyle choices and balanced diet items"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBw_9XaTi31UJzMXP_Xchz7XSV092dJEeC3UWNIUPPG4BiP-OtRs1s2FU8DC-4OFewoXXzcZQaunRqntq3skKl5zGc_KailjtiEiHV3quYDbUyL-cbr4Psy8VU0lt5afin_1itmFsn7h54cDrvdjBc4Euex2n4bk5zHYROOM1SdfpJv5T1c6ZR73AJ9YMqgsuSxfFSjs0W52Jxhem-cBIw07ymkVkjsAtQg55t6VEMxhubb1a-jiYzvyTX94dK7JzrT-qNZU8WcaOI')">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                    <p class="text-xs font-semibold uppercase tracking-wider text-primary-200 text-blue-200">NHLBI
+                        Health Guidelines</p>
+                    <h2 class="text-2xl font-bold text-white">Your Guide to Better Health</h2>
+                </div>
+            </div>
+        </section>
+        <!-- What is Obesity? -->
+        <section class="px-4 py-4">
+            <div class="flex items-center gap-2 mb-3">
+                <span class="material-symbols-outlined text-primary">info</span>
+                <h3 class="text-xl font-bold">What is Obesity?</h3>
+            </div>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+                Obesity is a complex, chronic disease involving an excessive amount of body fat. It's more than just a
+                cosmetic concern; it's a medical problem that increases the risk of other diseases.
+            </p>
+            <!-- BMI Card -->
+            <div class="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-4">
+                <div class="flex justify-between items-end mb-4">
+                    <div>
+                        <p class="text-sm font-medium text-slate-500">Clinical Definition</p>
+                        <p class="text-2xl font-bold text-primary">BMI ≥ 30.0</p>
+                    </div>
+                    <button
+                        class="rounded-full bg-primary px-4 py-2 text-xs font-bold text-white shadow-lg shadow-primary/20">
+                        CALCULATE MINE
+                    </button>
+                </div>
+                <!-- Simple BMI Scale -->
+                <div class="relative h-2 w-full rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden flex">
+                    <div class="h-full w-[25%] bg-blue-300"></div>
+                    <div class="h-full w-[25%] bg-green-500"></div>
+                    <div class="h-full w-[20%] bg-yellow-500"></div>
+                    <div class="h-full w-[30%] bg-red-500"></div>
+                </div>
+                <div class="mt-2 flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                    <span>Under</span>
+                    <span>Normal</span>
+                    <span>Overweight</span>
+                    <span class="text-primary">Obese</span>
+                </div>
+            </div>
+        </section>
+        <!-- Causes & Risk Factors -->
+        <section class="px-4 py-6">
+            <h3 class="text-xl font-bold mb-4">Causes &amp; Risk Factors</h3>
+            <div class="grid grid-cols-1 gap-3">
+                <div class="flex items-start gap-4 rounded-xl border border-slate-100 dark:border-slate-800 p-4">
+                    <div
+                        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined">genetics</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">Genetics</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Your genes may affect the amount of body
+                            fat you store and where that fat is distributed.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 rounded-xl border border-slate-100 dark:border-slate-800 p-4">
+                    <div
+                        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined">restaurant</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">Lifestyle Choices</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Unhealthy diet, liquid calories, and
+                            inactivity contribute significantly to weight gain.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 rounded-xl border border-slate-100 dark:border-slate-800 p-4">
+                    <div
+                        class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined">location_on</span>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">Environment</h4>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Lack of neighborhood sidewalks or
+                            affordable healthy food options in your area.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Health Risks -->
+        <section class="bg-slate-50 dark:bg-slate-800/30 px-4 py-8">
+            <h3 class="text-xl font-bold mb-4">Associated Health Risks</h3>
+            <div class="grid grid-cols-3 gap-3">
+                <div class="flex flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm">
+                    <span class="material-symbols-outlined text-red-500 mb-2" style="font-size: 32px;">favorite</span>
+                    <p class="text-xs font-bold">Heart Disease</p>
+                </div>
+                <div class="flex flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm">
+                    <span class="material-symbols-outlined text-orange-500 mb-2"
+                        style="font-size: 32px;">blood_pressure</span>
+                    <p class="text-xs font-bold">Type 2 Diabetes</p>
+                </div>
+                <div class="flex flex-col items-center rounded-xl bg-white dark:bg-slate-800 p-4 text-center shadow-sm">
+                    <span class="material-symbols-outlined text-blue-400 mb-2" style="font-size: 32px;">air</span>
+                    <p class="text-xs font-bold">Sleep Apnea</p>
+                </div>
+            </div>
+            <p class="mt-4 text-center text-sm text-slate-500 italic">Maintaining a healthy weight can significantly
+                reduce these risks.</p>
+        </section>
+        <!-- Taking Action -->
+        <section class="p-4 pt-8">
+            <div class="rounded-2xl bg-primary p-6 text-white shadow-xl shadow-primary/30">
+                <h3 class="text-xl font-bold mb-2">Ready to Take Action?</h3>
+                <p class="text-white/80 text-sm leading-relaxed mb-6">
+                    Small changes in your daily routine can lead to big improvements in your heart health and overall
+                    wellbeing.
+                </p>
+                <div class="space-y-3">
+                    <a class="flex items-center justify-between rounded-lg bg-white/20 px-4 py-3 font-semibold backdrop-blur-sm transition hover:bg-white/30"
+                        href="#">
+                        <span>Healthy Diet Plans</span>
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </a>
+                    <a class="flex items-center justify-between rounded-lg bg-white px-4 py-3 font-bold text-primary transition hover:bg-slate-50"
+                        href="#">
+                        <span>Start Tracking Now</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Bottom Navigation Bar -->
+        <nav
+            class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] border-t border-slate-100 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 px-2 pb-6 pt-2 backdrop-blur-lg">
+            <div class="flex justify-around items-center">
+                <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+                    <span class="material-symbols-outlined">calculate</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest">Calculator</span>
+                </a>
+                <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+                    <span class="material-symbols-outlined">history</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest">History</span>
+                </a>
+                <a class="flex flex-col items-center gap-1 text-primary" href="#">
+                    <div class="relative">
+                        <span class="material-symbols-outlined fill-1">menu_book</span>
+                        <div class="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-primary"></div>
+                    </div>
+                    <span class="text-[10px] font-bold uppercase tracking-widest">Resources</span>
+                </a>
+                <a class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" href="#">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest">Settings</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</body>
+
+</html>

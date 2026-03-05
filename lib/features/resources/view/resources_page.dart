@@ -90,6 +90,7 @@ class ResourcesPage extends StatelessWidget {
               icon: Icons.info_outline,
               title: 'What is Obesity?',
               subtitle: 'Risks and treatments for obesity.',
+              onTap: () => context.push(AppRouter.understandingObesityPath),
             ),
             const SizedBox(height: AppTheme.spacingMd),
             _ResourceCard(

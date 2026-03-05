@@ -9,6 +9,7 @@ import '../../features/resources/view/maintain_healthy_weight_page.dart';
 import '../../features/resources/view/heart_healthy_diet_page.dart';
 import '../../features/resources/view/increase_physical_activity_page.dart';
 import '../../features/resources/view/activity_guidelines_page.dart';
+import '../../features/resources/view/understanding_obesity_page.dart';
 import '../../features/settings/view/settings_page.dart';
 import '../../shared/widgets/app_shell.dart';
 
@@ -30,6 +31,7 @@ class AppRouter {
   static const String heartHealthyDietPath = '/heart-healthy-diet';
   static const String increasePhysicalActivityPath = '/increase-physical-activity';
   static const String activityGuidelinesPath = '/activity-guidelines';
+  static const String understandingObesityPath = '/understanding-obesity';
   static const String settingsPath = '/settings';
 
   static final GoRouter router = GoRouter(
@@ -111,6 +113,12 @@ class AppRouter {
         path: activityGuidelinesPath,
         name: 'activityGuidelines',
         builder: (context, state) => const ActivityGuidelinesPage(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: understandingObesityPath,
+        name: 'understandingObesity',
+        builder: (context, state) => const UnderstandingObesityPage(),
       ),
     ],
   );
