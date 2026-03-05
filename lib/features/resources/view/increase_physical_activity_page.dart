@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../core/routing/app_router.dart';
 
 import '../../../core/theme/app_theme.dart';
 
@@ -15,14 +18,20 @@ class IncreasePhysicalActivityPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, size: 20),
-          onPressed: () => Navigator.pop(context),
+        leading: GestureDetector(
+          onTap: () => Navigator.pop(context),
+          behavior: HitTestBehavior.opaque,
+          child: const Center(
+            child: Icon(Icons.arrow_back_ios_new, size: 20),
+          ),
         ),
         title: const Text('Physical Activity Guide'),
         centerTitle: true,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
       ),
       body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
         padding: const EdgeInsets.only(bottom: 32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,13 +85,6 @@ class IncreasePhysicalActivityPage extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: colorScheme.primary,
                                 borderRadius: BorderRadius.circular(16),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withValues(alpha: 0.1),
-                                    blurRadius: 8,
-                                    offset: const Offset(0, 4),
-                                  ),
-                                ],
                               ),
                               child: Text(
                                 'HEALTH RESOURCE',
@@ -266,13 +268,6 @@ class IncreasePhysicalActivityPage extends StatelessWidget {
                   border: Border.all(
                     color: Colors.blue.withValues(alpha: 0.3),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.blue.shade900.withValues(alpha: 0.2),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,6 +323,18 @@ class IncreasePhysicalActivityPage extends StatelessWidget {
                 ),
               ),
             ),
+
+            // ── Guidelines Link ──
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: AppTheme.spacingLg, vertical: 8),
+              child: _PlainLinkCard(
+                onTap: () => context.push(AppRouter.activityGuidelinesPath),
+                title: 'Activity Guidelines by Age',
+                subtitle: 'CDC recommendations for all ages',
+                icon: Icons.straighten,
+              ),
+            ),
           ],
         ),
       ),
@@ -343,13 +350,6 @@ class IncreasePhysicalActivityPage extends StatelessWidget {
             ? const Color(0xFF334155)
             : colorScheme.outline.withValues(alpha: 0.1),
       ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.05),
-          blurRadius: 4,
-          offset: const Offset(0, 1),
-        ),
-      ],
     );
   }
 }
@@ -566,6 +566,73 @@ class _ActivityTypeItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _PlainLinkCard extends StatelessWidget {
+  final VoidCallback onTap;
+  final String title;
+  final String subtitle;
+  final IconData icon;
+
+  const _PlainLinkCard({
+    required this.onTap,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(AppTheme.spacingLg),
+        decoration: BoxDecoration(
+          color: colorScheme.primary,
+          borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.2),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(icon, color: Colors.white, size: 28),
+            ),
+            const SizedBox(width: AppTheme.spacingLg),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: Colors.white.withValues(alpha: 0.8),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios,
+                color: Colors.white, size: 20),
+          ],
+        ),
       ),
     );
   }
