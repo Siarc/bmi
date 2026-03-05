@@ -268,28 +268,37 @@ class _HeartHealthyDietPageState extends State<HeartHealthyDietPage> {
                     ),
                   ),
                   const SizedBox(height: AppTheme.spacingLg),
-                  _LimitItem(
+                  _LimitAccordion(
                     icon: Icons.do_not_disturb_on,
                     iconColor: Colors.red[500]!,
                     iconBgColor: isDark ? Colors.red[500]!.withValues(alpha: 0.1) : Colors.red[50]!,
                     title: 'Sodium & Salts',
-                    subtitle: 'Aim for less than 2,300mg per day.',
+                    whyLimitIt: 'Excess sodium pulls water into your blood vessels. This increases the total volume of blood, which raises your blood pressure and forces your heart to work harder.',
+                    hiddenSources: 'Canned soups, frozen meals, deli meats, and condiments. (Most sodium in a typical diet comes from processed foods, not the salt shaker!)',
+                    dailyGoal: 'Less than 2,300mg per day. An ideal limit is 1,500mg for most adults, especially those with elevated blood pressure.',
+                    proTip: 'Substitute salt with herbs, spices, garlic, and citrus juices to flavor your food without adding sodium.',
                   ),
                   const SizedBox(height: AppTheme.spacingMd),
-                  _LimitItem(
+                  _LimitAccordion(
                     icon: Icons.warning,
                     iconColor: Colors.orange[500]!,
                     iconBgColor: isDark ? Colors.orange[500]!.withValues(alpha: 0.1) : Colors.orange[50]!,
                     title: 'Saturated Fats',
-                    subtitle: 'Limit butter, cheese, and red meats.',
+                    whyLimitIt: 'These fats directly raise your LDL ("bad") cholesterol levels. High LDL can build up as plaque in your arteries, narrowing them and increasing the risk of a heart attack.',
+                    hiddenSources: 'Store-bought baked goods, fried foods, coconut oil, palm oil, and full-fat dairy products.',
+                    dailyGoal: 'Limit saturated fats to no more than 5% to 6% of your total daily calories.',
+                    proTip: 'Swap butter for olive oil or avocado oil when cooking, and trim any visible fat off meats before preparing them.',
                   ),
                   const SizedBox(height: AppTheme.spacingMd),
-                  _LimitItem(
+                  _LimitAccordion(
                     icon: Icons.icecream,
                     iconColor: isDark ? Colors.yellow[500]! : Colors.yellow[600]!,
                     iconBgColor: isDark ? Colors.yellow[500]!.withValues(alpha: 0.1) : Colors.yellow[50]!,
                     title: 'Added Sugars',
-                    subtitle: 'Reduce soda, sweets, and desserts.',
+                    whyLimitIt: 'Diets high in added sugars are linked to weight gain, chronic inflammation, and elevated triglyceride levels, all of which severely stress your cardiovascular system.',
+                    hiddenSources: 'Ketchup, barbecue sauce, salad dressings, pasta sauces, and flavored yogurts.',
+                    dailyGoal: 'Keep added sugars to a minimum (generally advised to be under 25g per day for women and 36g for men).',
+                    proTip: 'Always check ingredient labels for sneaky sugars. Look out for words ending in "-ose" (like dextrose, fructose, or sucrose) and syrups (like high-fructose corn syrup).',
                   ),
                 ],
               ),
@@ -463,20 +472,33 @@ class _FoodCard extends StatelessWidget {
   }
 }
 
-class _LimitItem extends StatelessWidget {
+class _LimitAccordion extends StatefulWidget {
   final IconData icon;
   final Color iconColor;
   final Color iconBgColor;
   final String title;
-  final String subtitle;
+  final String whyLimitIt;
+  final String hiddenSources;
+  final String dailyGoal;
+  final String proTip;
 
-  const _LimitItem({
+  const _LimitAccordion({
     required this.icon,
     required this.iconColor,
     required this.iconBgColor,
     required this.title,
-    required this.subtitle,
+    required this.whyLimitIt,
+    required this.hiddenSources,
+    required this.dailyGoal,
+    required this.proTip,
   });
+
+  @override
+  State<_LimitAccordion> createState() => _LimitAccordionState();
+}
+
+class _LimitAccordionState extends State<_LimitAccordion> {
+  bool _isOpen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -485,7 +507,6 @@ class _LimitItem extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.all(AppTheme.spacingLg),
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF1E293B) : Colors.white,
         borderRadius: BorderRadius.circular(AppTheme.radiusLg),
@@ -493,40 +514,46 @@ class _LimitItem extends StatelessWidget {
           color: isDark ? const Color(0xFF334155).withValues(alpha: 0.5) : colorScheme.outline.withValues(alpha: 0.1),
         ),
       ),
-      child: Row(
-        children: [
-          Container(
+      child: Theme(
+        data: theme.copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          onExpansionChanged: (expanded) {
+            setState(() {
+              _isOpen = expanded;
+            });
+          },
+          tilePadding: const EdgeInsets.symmetric(horizontal: AppTheme.spacingLg, vertical: 8),
+          childrenPadding: const EdgeInsets.only(
+            left: AppTheme.spacingLg,
+            right: AppTheme.spacingLg,
+            bottom: AppTheme.spacingLg,
+          ),
+          leading: Container(
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: iconBgColor,
+              color: widget.iconBgColor,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: iconColor, size: 24),
+            child: Icon(widget.icon, color: widget.iconColor, size: 24),
           ),
-          const SizedBox(width: AppTheme.spacingLg),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
+          title: Text(
+            widget.title,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.bold,
             ),
           ),
-          Icon(Icons.chevron_right, color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
-        ],
+          trailing: Icon(
+            _isOpen ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down,
+            color: colorScheme.onSurfaceVariant,
+          ),
+          children: [
+            _AccordionDetailRow(title: 'Why limit it', text: widget.whyLimitIt),
+            _AccordionDetailRow(title: 'Hidden Sources', text: widget.hiddenSources),
+            _AccordionDetailRow(title: 'Daily Goal', text: widget.dailyGoal),
+            _AccordionDetailRow(title: 'Pro-Tip', text: widget.proTip),
+          ],
+        ),
       ),
     );
   }
