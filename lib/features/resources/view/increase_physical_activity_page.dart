@@ -124,58 +124,78 @@ class IncreasePhysicalActivityPage extends StatelessWidget {
                 children: [
                   _SectionHeader(title: 'Getting Started'),
                   const SizedBox(height: AppTheme.spacingMd),
-                  Container(
-                    padding: const EdgeInsets.all(AppTheme.spacingXl),
-                    decoration: _cardDecoration(isDark, colorScheme),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            color: colorScheme.primary.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(AppTheme.radiusLg),
-                            border: Border.all(
-                              color: colorScheme.primary.withValues(alpha: 0.2),
+                  GestureDetector(
+                    onTap: () => context.push(AppRouter.activityGuidelinesPath),
+                    child: Container(
+                      padding: const EdgeInsets.all(AppTheme.spacingXl),
+                      decoration: _cardDecoration(isDark, colorScheme),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 48,
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color: colorScheme.primary.withValues(alpha: 0.1),
+                              borderRadius:
+                                  BorderRadius.circular(AppTheme.radiusLg),
+                              border: Border.all(
+                                color:
+                                    colorScheme.primary.withValues(alpha: 0.2),
+                              ),
+                            ),
+                            child: Icon(Icons.verified_user,
+                                color: colorScheme.primary, size: 24),
+                          ),
+                          const SizedBox(width: AppTheme.spacingLg),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'CDC Guidelines',
+                                      style:
+                                          theme.textTheme.titleMedium?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.chevron_right,
+                                      size: 20,
+                                      color: colorScheme.onSurfaceVariant
+                                          .withValues(alpha: 0.5),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'For substantial health benefits, adults should aim for:',
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: colorScheme.onSurfaceVariant,
+                                    height: 1.5,
+                                  ),
+                                ),
+                                const SizedBox(height: AppTheme.spacingLg),
+                                _GuidelineItem(
+                                  highlightText: '150 minutes',
+                                  text:
+                                      ' of moderate-intensity aerobic activity per week.',
+                                ),
+                                const SizedBox(height: AppTheme.spacingMd),
+                                _GuidelineItem(
+                                  highlightText: '2 days',
+                                  text:
+                                      ' of muscle-strengthening activity per week.',
+                                ),
+                              ],
                             ),
                           ),
-                          child: Icon(Icons.verified_user,
-                              color: colorScheme.primary, size: 24),
-                        ),
-                        const SizedBox(width: AppTheme.spacingLg),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'CDC Guidelines',
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'For substantial health benefits, adults should aim for:',
-                                style: theme.textTheme.bodySmall?.copyWith(
-                                  color: colorScheme.onSurfaceVariant,
-                                  height: 1.5,
-                                ),
-                              ),
-                              const SizedBox(height: AppTheme.spacingLg),
-                              _GuidelineItem(
-                                highlightText: '150 minutes',
-                                text: ' of moderate-intensity aerobic activity per week.',
-                              ),
-                              const SizedBox(height: AppTheme.spacingMd),
-                              _GuidelineItem(
-                                highlightText: '2 days',
-                                text: ' of muscle-strengthening activity per week.',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -324,17 +344,7 @@ class IncreasePhysicalActivityPage extends StatelessWidget {
               ),
             ),
 
-            // ── Guidelines Link ──
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppTheme.spacingLg, vertical: 8),
-              child: _PlainLinkCard(
-                onTap: () => context.push(AppRouter.activityGuidelinesPath),
-                title: 'Activity Guidelines by Age',
-                subtitle: 'CDC recommendations for all ages',
-                icon: Icons.straighten,
-              ),
-            ),
+            const SizedBox(height: 8),
           ],
         ),
       ),
@@ -566,73 +576,6 @@ class _ActivityTypeItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _PlainLinkCard extends StatelessWidget {
-  final VoidCallback onTap;
-  final String title;
-  final String subtitle;
-  final IconData icon;
-
-  const _PlainLinkCard({
-    required this.onTap,
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(AppTheme.spacingLg),
-        decoration: BoxDecoration(
-          color: colorScheme.primary,
-          borderRadius: BorderRadius.circular(AppTheme.radiusXl),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.2),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(icon, color: Colors.white, size: 28),
-            ),
-            const SizedBox(width: AppTheme.spacingLg),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.8),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Icon(Icons.arrow_forward_ios,
-                color: Colors.white, size: 20),
-          ],
-        ),
       ),
     );
   }

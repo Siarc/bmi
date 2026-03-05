@@ -144,41 +144,16 @@ class ActivityGuidelinesPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(AppTheme.spacingLg),
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.add_circle, color: Colors.white),
-                      label: const Text(
-                        "Log Today's Activity",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: colorScheme.primary,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(AppTheme.radiusXl),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    'SOURCE: CENTERS FOR DISEASE CONTROL AND PREVENTION (CDC)',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.5,
-                      fontSize: 10,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+              padding: const EdgeInsets.symmetric(horizontal: AppTheme.spacingLg, vertical: 24),
+              child: Text(
+                'SOURCE: CENTERS FOR DISEASE CONTROL AND PREVENTION (CDC)',
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5,
+                  fontSize: 10,
+                ),
+                textAlign: TextAlign.center,
               ),
             ),
           ],
