@@ -411,17 +411,19 @@ class BmiResultPage extends StatelessWidget {
 
             // Resources Links
             _ResourceLinkCard(
-              icon: Icons.restaurant_menu,
-              iconColor: colorScheme.primary,
-              title: 'Healthy Eating Plan',
-              subtitle: 'Discover balanced diets tailored for your BMI goals.',
+              icon: Icons.trending_up,
+              iconColor: AppColors.bmiOverweight,
+              title: 'Risks of Overweight',
+              subtitle: 'Learn about the health risks associated with a high BMI.',
+              onTap: () => context.push(AppRouter.risksOverweightPath),
             ),
             const SizedBox(height: AppTheme.spacingMd),
             _ResourceLinkCard(
-              icon: Icons.favorite,
-              iconColor: AppColors.accentPink,
-              title: 'Health Risks Evaluation',
-              subtitle: 'Learn about potential health implications and prevention.',
+              icon: Icons.trending_down,
+              iconColor: AppColors.bmiUnderweight,
+              title: 'Risks of Underweight',
+              subtitle: 'Understand health complications of low body weight.',
+              onTap: () => context.push(AppRouter.risksUnderweightPath),
             ),
             const SizedBox(height: 100), // padding for navigation bar overlap
           ],
@@ -647,12 +649,14 @@ class _ResourceLinkCard extends StatelessWidget {
   final Color iconColor;
   final String title;
   final String subtitle;
+  final VoidCallback? onTap;
 
   const _ResourceLinkCard({
     required this.icon,
     required this.iconColor,
     required this.title,
     required this.subtitle,
+    this.onTap,
   });
 
   @override
@@ -661,7 +665,7 @@ class _ResourceLinkCard extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return InkWell(
-      onTap: () {},
+      onTap: onTap,
       borderRadius: BorderRadius.circular(AppTheme.radiusLg),
       child: Container(
         padding: const EdgeInsets.all(AppTheme.spacingLg),

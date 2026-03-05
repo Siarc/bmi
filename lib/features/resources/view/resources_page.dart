@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../../core/routing/app_router.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -100,6 +102,24 @@ class ResourcesPage extends StatelessWidget {
               title: 'Control your numbers',
               subtitle: 'BMI, cholesterol, and blood pressure.',
             ),
+            const SizedBox(height: AppTheme.spacingMd),
+            _ResourceCard(
+              bgColor: AppColors.roseCardBg,
+              iconColor: AppColors.accentRose,
+              icon: Icons.trending_up,
+              title: 'Risks of Overweight',
+              subtitle: 'Learn about the health risks associated with a high BMI.',
+              onTap: () => context.push(AppRouter.risksOverweightPath),
+            ),
+            const SizedBox(height: AppTheme.spacingMd),
+            _ResourceCard(
+              bgColor: AppColors.blueCardBg,
+              iconColor: AppColors.accentBlue,
+              icon: Icons.trending_down,
+              title: 'Risks of Underweight',
+              subtitle: 'Understand health complications of low body weight.',
+              onTap: () => context.push(AppRouter.risksUnderweightPath),
+            ),
             const SizedBox(height: AppTheme.spacingXxxl),
             _FindDoctorCard(),
             const SizedBox(height: AppTheme.spacingXxxl),
@@ -134,54 +154,60 @@ class _ResourceCard extends StatelessWidget {
   final IconData icon;
   final String title;
   final String subtitle;
+  final VoidCallback? onTap;
   const _ResourceCard({
     required this.bgColor,
     required this.iconColor,
     required this.icon,
     required this.title,
     required this.subtitle,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.spacingLg),
-      decoration: BoxDecoration(
-        color: cs.surface,
-        borderRadius: BorderRadius.circular(AppTheme.radiusLg),
-        border: Border.all(color: cs.outline.withValues(alpha: 0.2)),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: bgColor,
-              borderRadius: BorderRadius.circular(AppTheme.radiusMd),
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(AppTheme.radiusLg),
+      child: Container(
+        padding: const EdgeInsets.all(AppTheme.spacingLg),
+        decoration: BoxDecoration(
+          color: cs.surface,
+          borderRadius: BorderRadius.circular(AppTheme.radiusLg),
+          border: Border.all(color: cs.outline.withValues(alpha: 0.2)),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius: BorderRadius.circular(AppTheme.radiusMd),
+              ),
+              child: Icon(icon, color: iconColor, size: 24),
             ),
-            child: Icon(icon, color: iconColor, size: 24),
-          ),
-          const SizedBox(width: AppTheme.spacingLg),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(title, style: theme.textTheme.headlineSmall?.copyWith(
-                  fontSize: 15,
-                )),
-                const SizedBox(height: 2),
-                Text(subtitle, style: theme.textTheme.bodySmall?.copyWith(
-                  color: cs.onSurfaceVariant, fontSize: 13,
-                )),
-              ],
+            const SizedBox(width: AppTheme.spacingLg),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: theme.textTheme.headlineSmall?.copyWith(
+                    fontSize: 15,
+                  )),
+                  const SizedBox(height: 2),
+                  Text(subtitle, style: theme.textTheme.bodySmall?.copyWith(
+                    color: cs.onSurfaceVariant, fontSize: 13,
+                  )),
+                ],
+              ),
             ),
-          ),
-          Icon(Icons.chevron_right,
-              color: cs.onSurfaceVariant.withValues(alpha: 0.5), size: 20),
-        ],
+            Icon(Icons.chevron_right,
+                color: cs.onSurfaceVariant.withValues(alpha: 0.5), size: 20),
+          ],
+        ),
       ),
     );
   }
