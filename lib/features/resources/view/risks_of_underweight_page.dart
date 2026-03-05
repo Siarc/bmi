@@ -32,58 +32,64 @@ class RisksOfUnderweightPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: AppTheme.spacingLg,
                   vertical: AppTheme.spacingXxl),
-              child: Container(
-                height: 176,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: colorScheme.primary.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(AppTheme.radiusXl),
-                  border: Border.all(
-                    color: colorScheme.primary.withValues(alpha: 0.2),
-                  ),
-                ),
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: Container(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+                child: SizedBox(
+                  height: 176,
+                  width: double.infinity,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Container(
                         decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(AppTheme.radiusXl),
+                          color: colorScheme.surface,
+                          image: const DecorationImage(
+                            image: AssetImage(
+                              'assets/images/medical_school_banner.png',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
                           gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
                             colors: [
-                              colorScheme.primary.withValues(alpha: 0.1),
-                              const Color(0xFF06B6D4).withValues(alpha: 0.1),
+                              Color(0xD9000000), // Black 85%
+                              Color(0x66000000), // Black 40%
+                              Colors.transparent,
                             ],
                           ),
                         ),
                       ),
-                    ),
-                    Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.medical_services,
-                              color: colorScheme.primary, size: 48),
-                          const SizedBox(height: AppTheme.spacingSm),
-                          Text(
-                            'Health Risk Education',
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
+                      Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.medical_services,
+                                color: Colors.white, size: 48),
+                            const SizedBox(height: AppTheme.spacingSm),
+                            Text(
+                              'Health Risk Education',
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            'Based on CDC & NHS Guidelines',
-                            style: theme.textTheme.bodySmall?.copyWith(
-                              color: colorScheme.onSurfaceVariant,
+                            const SizedBox(height: 4),
+                            Text(
+                              'Based on CDC & NHS Guidelines',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: Colors.white.withValues(alpha: 0.9),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

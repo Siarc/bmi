@@ -33,13 +33,6 @@ class ActivityGuidelinesPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Activity Guidelines by Age',
-                    style: theme.textTheme.headlineLarge?.copyWith(
-                      fontWeight: FontWeight.w800,
-                      height: 1.2,
-                    ),
-                  ),
                   const SizedBox(height: 8),
                   Text(
                     'CDC recommendations for physical activity to maintain optimal cardiovascular health and BMI levels.',
@@ -61,8 +54,7 @@ class ActivityGuidelinesPage extends StatelessWidget {
                 requirementMins: '60',
                 requirementText: 'Moderate-to-vigorous activity daily.',
                 isDark: isDark,
-                imageUrl:
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuBURXjbCW8IC_lYD7TmyqdWHs7xWtshRECUQHO7vZ5VPX71qdAVBSLAzQJZqhC5jSF6oEo3zjjsmobBv1blMuovnWcifJZsXl43gsnb1HFC4fcl8jA2-M5AvmYC-UeoVcbHfgttzfJ9UvU30IhXuar70Q4eF__pDoBtKZt4L0B9lr896pib04quPBmfs4UNy9xoQavRx9-EZu-1Mr8Jd_laTaY0BqHAQFVyI4UgdCcTtpE8FSnCYO4COwgYJVcvVOCLlqiwo1pAPHQ',
+                imagePath: 'assets/images/child_activity_guidelines_alt.png',
                 bullets: const [
                   _BulletItem(
                     title: 'Aerobic Activity',
@@ -85,8 +77,7 @@ class ActivityGuidelinesPage extends StatelessWidget {
                 requirementMins: '150',
                 requirementText: 'Moderate-intensity aerobic activity per week.',
                 isDark: isDark,
-                imageUrl:
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuB_50DOdEbEJiaACv8PCYCVOukMk8nndsAnj-Bdh2ISnl-aQXout3mBQLwgC2xYOS1HbYzYWlFfncNmgAsfAxVi_Rd71FFf8HuLa4nJDdF-1f_7yaTJgE-8cLNsneL_nLjy9pYJZs0VAC41Fipi7ITp8rxQZ7B2fP5CMBqErOcnxiwBVqxIHZgE8Dw2wytm2Jw0_bo4wY2DZb8HQ2sch1mQPaL9FjCTPMpoir1L0hIuFMKHc5Mlriy3dMXYl9OcQQdBKiKOOcQFpVk',
+                imagePath: 'assets/images/adult_activity_guidelines.png',
                 customContent: Column(
                   children: [
                     _AdultActivityRow(
@@ -117,8 +108,7 @@ class ActivityGuidelinesPage extends StatelessWidget {
                 requirementText:
                     'Weekly aerobic plus balance-focused training.',
                 isDark: isDark,
-                imageUrl:
-                    'https://lh3.googleusercontent.com/aida-public/AB6AXuBPVMdMWykOZ-mIUTTh0eXXqMb5vln4a3wFdGEXPGVnWRuvRk62Szvzqn_bGSOSynFlw0PqJPHV6jQnLwUMFPeKc55jULVpHg7vjeUh-6T-o34qAqvEXxsaK89Eo2hnytKLXSwOP_ZemAjs1kUJdB0A8vpFtLBbfMoQgZ2smJyFivj1gNuNUXSfh9eHod2ncagxpj-uugnU84JNMbgM7VcN4bfrEVGGCSo-vyZ138mHT55wT9FTxWi-hpcXMjZOayWWv8qM1w2qwU4',
+                imagePath: 'assets/images/older_adult_activity_guidelines_alt.png',
                 customContent: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
@@ -170,7 +160,7 @@ class _GuidelineCard extends StatelessWidget {
   final String requirementMins;
   final String requirementText;
   final bool isDark;
-  final String imageUrl;
+  final String imagePath;
   final List<_BulletItem>? bullets;
   final Widget? customContent;
 
@@ -181,7 +171,7 @@ class _GuidelineCard extends StatelessWidget {
     required this.requirementMins,
     required this.requirementText,
     required this.isDark,
-    required this.imageUrl,
+    required this.imagePath,
     this.bullets,
     this.customContent,
   });
@@ -320,8 +310,8 @@ class _GuidelineCard extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             height: 120, // h-32
-            child: Image.network(
-              imageUrl,
+            child: Image.asset(
+              imagePath,
               fit: BoxFit.cover,
             ),
           ),

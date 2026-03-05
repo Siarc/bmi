@@ -52,8 +52,8 @@ class _HeartHealthyDietPageState extends State<HeartHealthyDietPage> {
                         decoration: BoxDecoration(
                           color: colorScheme.surface,
                           image: const DecorationImage(
-                            image: NetworkImage(
-                              'https://lh3.googleusercontent.com/aida-public/AB6AXuDajHPnwiXX2hy-59TKcz_YT4jaBvnKvBGYxSToOzKqFKRBnwHRRj-GVvtB3WnROxtR8PXJKjufFxdUplXVtzg9mxW7nZv-Hyp7UsH61lpjD3Tl6Lin7H69jbgMUFJrukcNhq2N-TVw2jgpFQWcPg445duw_p1FD9Si-yRcc_rtTFKFJZzn7sVu3_PfwH4y_lirxhNV_QSXtx4b4GjZuxKOXWUuXkYfgZsfK9Bk0e2cSaMyH5tUbrkpJy_67uCFZGZ9JKj5kieqVrs',
+                            image: AssetImage(
+                              'assets/images/heart_healthy_diet_banner.png',
                             ),
                             fit: BoxFit.cover,
                           ),

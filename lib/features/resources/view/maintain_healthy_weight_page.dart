@@ -43,8 +43,8 @@ class MaintainHealthyWeightPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: colorScheme.surface,
                           image: const DecorationImage(
-                            image: NetworkImage(
-                              'https://lh3.googleusercontent.com/aida-public/AB6AXuA2WD3AOIlgvUbdzE6EHswXfUalxxzYmSeE1gITXheXkJ4n1KRIr4RQHyqWH-1IxKNtoRdCvIFAE7QO6mDwKED5K8UL7icWwptVY3ZQAKGq_OIT0dmQkKPeg0NApAeNOTvCm9DlyPYvX_tq41aXY-cI_2eh32KufjdRmUeJpTuitng2wMj2qFDeEAOPVDpI1UcuCSA3vGCC_YCI4xLK2ddO9k58RmHdq1ciU_sPC_qIAwW43RBy35ozeZA26XxexLurWXPh_CdYZis',
+                            image: AssetImage(
+                              'assets/images/healthy_weight_banner.png',
                             ),
                             fit: BoxFit.cover,
                           ),

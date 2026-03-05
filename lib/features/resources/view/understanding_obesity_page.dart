@@ -55,8 +55,8 @@ class UnderstandingObesityPage extends StatelessWidget {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    Image.network(
-                      'https://lh3.googleusercontent.com/aida-public/AB6AXuBw_9XaTi31UJzMXP_Xchz7XSV092dJEeC3UWNIUPPG4BiP-OtRs1s2FU8DC-4OFewoXXzcZQaunRqntq3skKl5zGc_KailjtiEiHV3quYDbUyL-cbr4Psy8VU0lt5afin_1itmFsn7h54cDrvdjBc4Euex2n4bk5zHYROOM1SdfpJv5T1c6ZR73AJ9YMqgsuSxfFSjs0W52Jxhem-cBIw07ymkVkjsAtQg55t6VEMxhubb1a-jiYzvyTX94dK7JzrT-qNZU8WcaOI',
+                    Image.asset(
+                      'assets/images/understanding_obesity_banner.png',
                       fit: BoxFit.cover,
                     ),
                     Container(
@@ -80,7 +80,7 @@ class UnderstandingObesityPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'NHLBI HEALTH GUIDELINES',
+                            'HEALTH GUIDELINES',
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: isDark ? Colors.blue[300] : Colors.blue[200],
                               fontWeight: FontWeight.w800,

@@ -51,8 +51,8 @@ class IncreasePhysicalActivityPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: colorScheme.surface,
                           image: const DecorationImage(
-                            image: NetworkImage(
-                              'https://lh3.googleusercontent.com/aida-public/AB6AXuDiP-hexaxWON7LwdSkf2l7n1nD_8fk3_6vMaCb4RUyYg09XnNrY2ENgL8bTdhci3m_4SPB-TZLDrgm_kyzPPqG3vWpIpiLMWPe_6KVLMNvrhoDb2HlMtQEjeFQtAmZW14vIM070lGXE6ZV2_QsjFBh_hJeaDMBWDTS165j3ZiEM758iIp7X36AAyAM9-vSl0XsQbSMR-y00a8VorfN6DvXA_-PnxVCq8qQBK0aTHQt-5F6ygcTxkWJgZetfxoNzIJZJ-bdmkGtCak',
+                            image: AssetImage(
+                              'assets/images/physical_activity_banner.png',
                             ),
                             fit: BoxFit.cover,
                           ),

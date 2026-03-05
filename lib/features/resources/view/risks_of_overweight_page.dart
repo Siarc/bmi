@@ -42,8 +42,8 @@ class RisksOfOverweightPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: colorScheme.surface,
                           image: const DecorationImage(
-                            image: NetworkImage(
-                              'https://lh3.googleusercontent.com/aida-public/AB6AXuCoh5KdBOX9C_Viw_HxLIoAat5ahEvO4yLMgjWQA1MrbPvHdeV7ovk_1nNGsXbBZxUbFy2zHJZks62nomwS1w7xcUVrJWaSN41_K6MxDjdRlV8yCc05g_O35ieULm5iDwoijBQvzJt85h9O1GNXQIlL-QhaXxZqMYI-LU-T41LIQ0GCi6FdiktCqNejBRHw7WYXALPJHOoQYfzSqGZBbC5xG5zrSZ2g24DYXerofsh9LrrD5G1v7qRvvV1Pi_Vqhs799A7DzhOC1F8',
+                            image: AssetImage(
+                              'assets/images/medical_professional_banner.png',
                             ),
                             fit: BoxFit.cover,
                           ),
