@@ -5,6 +5,7 @@ import '../../features/calculator/view/bmi_result_page.dart';
 import '../../features/resources/view/resources_page.dart';
 import '../../features/resources/view/risks_of_overweight_page.dart';
 import '../../features/resources/view/risks_of_underweight_page.dart';
+import '../../features/resources/view/maintain_healthy_weight_page.dart';
 import '../../features/settings/view/settings_page.dart';
 import '../../shared/widgets/app_shell.dart';
 
@@ -22,6 +23,7 @@ class AppRouter {
   static const String resourcesPath = '/resources';
   static const String risksOverweightPath = '/risks-of-overweight';
   static const String risksUnderweightPath = '/risks-of-underweight';
+  static const String maintainHealthyWeightPath = '/maintain-healthy-weight';
   static const String settingsPath = '/settings';
 
   static final GoRouter router = GoRouter(
@@ -79,6 +81,12 @@ class AppRouter {
         path: risksUnderweightPath,
         name: 'risksUnderweight',
         builder: (context, state) => const RisksOfUnderweightPage(),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootNavigatorKey,
+        path: maintainHealthyWeightPath,
+        name: 'maintainHealthyWeight',
+        builder: (context, state) => const MaintainHealthyWeightPage(),
       ),
     ],
   );

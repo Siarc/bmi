@@ -56,6 +56,7 @@ class ResourcesPage extends StatelessWidget {
               icon: Icons.monitor_weight_outlined,
               title: 'Maintain a healthy weight',
               subtitle: 'Tips for balancing calories and activity.',
+              onTap: () => context.push(AppRouter.maintainHealthyWeightPath),
             ),
             const SizedBox(height: AppTheme.spacingMd),
             _ResourceCard(

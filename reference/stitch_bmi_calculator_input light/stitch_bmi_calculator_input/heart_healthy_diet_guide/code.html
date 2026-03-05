@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Heart Healthy Diet Guide</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .active-tab {
+            color: #135bec;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+    <!-- iOS Status Bar Spacer -->
+    <div class="h-12 bg-white dark:bg-background-dark w-full sticky top-0 z-50"></div>
+    <!-- Top Navigation -->
+    <header
+        class="sticky top-12 z-50 flex items-center bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-4 py-3 border-b border-slate-200 dark:border-slate-800 justify-between">
+        <div class="flex items-center gap-3">
+            <button
+                class="flex items-center justify-center p-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-primary">arrow_back_ios_new</span>
+            </button>
+            <h1 class="text-lg font-bold tracking-tight">Heart-Healthy Diet</h1>
+        </div>
+        <button
+            class="flex items-center justify-center p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+            <span class="material-symbols-outlined text-primary">share</span>
+        </button>
+    </header>
+    <main class="pb-32 max-w-md mx-auto">
+        <!-- Hero Section -->
+        <div class="px-4 py-6">
+            <div class="relative overflow-hidden rounded-xl bg-primary h-48 flex items-end group"
+                data-alt="Vibrant assortment of fresh healthy vegetables"
+                style="background-image: linear-gradient(rgba(19, 91, 236, 0.4), rgba(19, 91, 236, 0.9)), url('https://lh3.googleusercontent.com/aida-public/AB6AXuDajHPnwiXX2hy-59TKcz_YT4jaBvnKvBGYxSToOzKqFKRBnwHRRj-GVvtB3WnROxtR8PXJKjufFxdUplXVtzg9mxW7nZv-Hyp7UsH61lpjD3Tl6Lin7H69jbgMUFJrukcNhq2N-TVw2jgpFQWcPg445duw_p1FD9Si-yRcc_rtTFKFJZzn7sVu3_PfwH4y_lirxhNV_QSXtx4b4GjZuxKOXWUuXkYfgZsfK9Bk0e2cSaMyH5tUbrkpJy_67uCFZGZ9JKj5kieqVrs'); background-size: cover; background-position: center;">
+                <div class="p-5 w-full">
+                    <span
+                        class="bg-white/20 text-white text-[10px] uppercase tracking-widest font-bold px-2 py-1 rounded-full backdrop-blur-sm">NHLBI
+                        Guidelines</span>
+                    <h2 class="text-white text-2xl font-extrabold mt-2 leading-tight">Eat a Heart-Healthy Diet</h2>
+                    <p class="text-white/80 text-sm mt-1">Lower your BMI and blood pressure.</p>
+                </div>
+            </div>
+        </div>
+        <!-- What to Eat Section -->
+        <section class="px-4 mb-8">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100">What to Eat</h3>
+                <span class="text-primary text-sm font-medium">View All</span>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <!-- Fruits & Veggies -->
+                <div
+                    class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div
+                        class="size-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-3">
+                        <span class="material-symbols-outlined text-green-600 dark:text-green-400">eco</span>
+                    </div>
+                    <h4 class="font-bold text-sm">Fruits &amp; Veggies</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Leafy greens, berries,
+                        citrus fruits.</p>
+                </div>
+                <!-- Whole Grains -->
+                <div
+                    class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div
+                        class="size-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center mb-3">
+                        <span class="material-symbols-outlined text-amber-600 dark:text-amber-400">bakery_dining</span>
+                    </div>
+                    <h4 class="font-bold text-sm">Whole Grains</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Oatmeal, brown rice, and
+                        quinoa.</p>
+                </div>
+                <!-- Lean Proteins -->
+                <div
+                    class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div
+                        class="size-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-3">
+                        <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">set_meal</span>
+                    </div>
+                    <h4 class="font-bold text-sm">Lean Proteins</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Fish, beans, skinless
+                        poultry.</p>
+                </div>
+                <!-- Healthy Fats -->
+                <div
+                    class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800 shadow-sm">
+                    <div
+                        class="size-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center mb-3">
+                        <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400">water_drop</span>
+                    </div>
+                    <h4 class="font-bold text-sm">Healthy Fats</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">Nuts, seeds, and
+                        avocados.</p>
+                </div>
+            </div>
+        </section>
+        <!-- What to Limit Section -->
+        <section class="px-4 mb-8">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">What to Limit</h3>
+            <div class="space-y-3">
+                <div
+                    class="flex items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div
+                        class="size-12 shrink-0 bg-red-50 dark:bg-red-900/20 flex items-center justify-center rounded-full">
+                        <span class="material-symbols-outlined text-red-500">do_not_disturb_on</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-base">Sodium &amp; Salts</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Aim for less than 2,300mg per day.</p>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-300">chevron_right</span>
+                </div>
+                <div
+                    class="flex items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div
+                        class="size-12 shrink-0 bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center rounded-full">
+                        <span class="material-symbols-outlined text-orange-500">warning</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-base">Saturated Fats</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Limit butter, cheese, and red meats.</p>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-300">chevron_right</span>
+                </div>
+                <div
+                    class="flex items-center gap-4 bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <div
+                        class="size-12 shrink-0 bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center rounded-full">
+                        <span class="material-symbols-outlined text-yellow-600">icecream</span>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-base">Added Sugars</h4>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Reduce soda, sweets, and desserts.</p>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-300">chevron_right</span>
+                </div>
+            </div>
+        </section>
+        <!-- DASH Highlight Box -->
+        <section class="px-4 mb-8">
+            <div class="bg-primary rounded-2xl p-6 text-white shadow-lg shadow-primary/20 overflow-hidden relative">
+                <div class="absolute -right-10 -top-10 size-40 bg-white/10 rounded-full blur-3xl"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-3">
+                        <span class="material-symbols-outlined">verified</span>
+                        <h3 class="text-xl font-bold">The DASH Eating Plan</h3>
+                    </div>
+                    <p class="text-white/90 text-sm leading-relaxed mb-4">
+                        Dietary Approaches to Stop Hypertension (DASH) is proven to lower blood pressure and LDL
+                        cholesterol levels.
+                    </p>
+                    <button
+                        class="bg-white text-primary font-bold px-4 py-2 rounded-lg text-sm transition-transform active:scale-95">
+                        View Sample Plan
+                    </button>
+                </div>
+            </div>
+        </section>
+        <!-- Actionable Tips -->
+        <section class="px-4 mb-8">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-4">Quick Tips</h3>
+            <div class="grid grid-cols-1 gap-4">
+                <div
+                    class="flex items-center gap-4 p-4 bg-primary/5 dark:bg-primary/10 rounded-xl border border-primary/10">
+                    <span class="material-symbols-outlined text-primary text-3xl">manage_search</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-slate-100">Read Nutrition Labels</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Focus on sodium % Daily Value (DV).
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="flex items-center gap-4 p-4 bg-primary/5 dark:bg-primary/10 rounded-xl border border-primary/10">
+                    <span class="material-symbols-outlined text-primary text-3xl">swap_horiz</span>
+                    <div>
+                        <h4 class="font-bold text-slate-900 dark:text-slate-100">Smart Swaps</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Use herbs instead of salt for
+                            flavoring.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Bottom Navigation -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-background-dark/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 px-6 pb-8 pt-3 z-50">
+        <div class="flex items-center justify-between max-w-md mx-auto">
+            <a class="flex flex-col items-center gap-1 text-slate-400 transition-colors" href="#">
+                <span class="material-symbols-outlined">calculate</span>
+                <span class="text-[10px] font-semibold">Calculator</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400 transition-colors" href="#">
+                <span class="material-symbols-outlined">history</span>
+                <span class="text-[10px] font-semibold">History</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-primary transition-colors" href="#">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+                <span class="text-[10px] font-bold">Resources</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-400 transition-colors" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="text-[10px] font-semibold">Settings</span>
+            </a>
+        </div>
+    </nav>
+</body>
+
+</html>
