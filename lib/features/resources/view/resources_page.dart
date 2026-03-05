@@ -20,12 +20,6 @@ class ResourcesPage extends StatelessWidget {
         title: Text('Improve Your Health',
             style: theme.textTheme.headlineMedium),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: colorScheme.onSurfaceVariant),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
@@ -65,6 +59,7 @@ class ResourcesPage extends StatelessWidget {
               icon: Icons.favorite_outline,
               title: 'Eat heart-healthy',
               subtitle: 'Foods that lower blood pressure naturally.',
+              onTap: () => context.push(AppRouter.heartHealthyDietPath),
             ),
             const SizedBox(height: AppTheme.spacingMd),
             _ResourceCard(

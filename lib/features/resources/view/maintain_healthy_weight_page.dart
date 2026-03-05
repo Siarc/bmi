@@ -22,12 +22,6 @@ class MaintainHealthyWeightPage extends StatelessWidget {
         ),
         title: const Text('Maintain Healthy Weight'),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.share, size: 20),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 32),
