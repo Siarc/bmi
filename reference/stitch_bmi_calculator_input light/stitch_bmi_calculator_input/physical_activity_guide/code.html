@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Physical Activity Guide</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+    <!-- Main Container (Mobile Form Factor) -->
+    <div
+        class="relative mx-auto flex h-full min-h-screen max-w-md flex-col bg-white dark:bg-background-dark shadow-2xl overflow-hidden">
+        <!-- Header / Top Nav -->
+        <header
+            class="sticky top-0 z-10 flex items-center bg-white/90 dark:bg-background-dark/90 backdrop-blur-md px-4 py-4 border-b border-slate-100 dark:border-slate-800">
+            <button
+                class="flex h-10 w-10 items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-slate-700 dark:text-slate-200">arrow_back</span>
+            </button>
+            <h1 class="ml-2 flex-1 text-lg font-bold tracking-tight text-slate-900 dark:text-white">Increase Physical
+                Activity</h1>
+            <button class="flex h-10 w-10 items-center justify-center rounded-full">
+                <span class="material-symbols-outlined text-slate-700 dark:text-slate-200">share</span>
+            </button>
+        </header>
+        <!-- Scrollable Content -->
+        <main class="flex-1 overflow-y-auto hide-scrollbar pb-24">
+            <!-- Hero Image Section -->
+            <div class="px-4 py-4">
+                <div class="relative h-48 w-full overflow-hidden rounded-xl bg-slate-200 dark:bg-slate-800"
+                    data-alt="Person doing dynamic stretching outdoors in sunlight"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDiP-hexaxWON7LwdSkf2l7n1nD_8fk3_6vMaCb4RUyYg09XnNrY2ENgL8bTdhci3m_4SPB-TZLDrgm_kyzPPqG3vWpIpiLMWPe_6KVLMNvrhoDb2HlMtQEjeFQtAmZW14vIM070lGXE6ZV2_QsjFBh_hJeaDMBWDTS165j3ZiEM758iIp7X36AAyAM9-vSl0XsQbSMR-y00a8VorfN6DvXA_-PnxVCq8qQBK0aTHQt-5F6ygcTxkWJgZetfxoNzIJZJ-bdmkGtCak"); background-size: cover; background-position: center;'>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <span
+                            class="inline-block rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">Health
+                            Resource</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Getting Started Section -->
+            <section class="px-4 py-4">
+                <h2 class="mb-4 text-xl font-extrabold text-slate-900 dark:text-white">Getting Started</h2>
+                <div
+                    class="rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 p-4 shadow-sm">
+                    <div class="flex items-start gap-4">
+                        <div
+                            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                            <span class="material-symbols-outlined">verified_user</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-900 dark:text-white">CDC Guidelines</p>
+                            <p class="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                                For substantial health benefits, adults should aim for:
+                            </p>
+                            <ul class="mt-3 space-y-3">
+                                <li class="flex items-start gap-3">
+                                    <span
+                                        class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300"><strong>150
+                                            minutes</strong> of moderate-intensity aerobic activity per week.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span
+                                        class="material-symbols-outlined text-primary text-sm mt-0.5">check_circle</span>
+                                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300"><strong>2
+                                            days</strong> of muscle-strengthening activity per week.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Benefits Section -->
+            <section class="px-4 py-4">
+                <h2 class="mb-4 text-xl font-extrabold text-slate-900 dark:text-white">Benefits of Movement</h2>
+                <div class="grid grid-cols-1 gap-3">
+                    <div
+                        class="flex items-center gap-4 rounded-xl border border-slate-100 dark:border-slate-800 p-3 bg-white dark:bg-background-dark">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/30 text-red-600">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Heart Health</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Improves circulation and lowers BP</p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center gap-4 rounded-xl border border-slate-100 dark:border-slate-800 p-3 bg-white dark:bg-background-dark">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600">
+                            <span class="material-symbols-outlined">fitness_center</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Weight Control</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Helps manage BMI and body fat</p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center gap-4 rounded-xl border border-slate-100 dark:border-slate-800 p-3 bg-white dark:bg-background-dark">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600">
+                            <span class="material-symbols-outlined">mood</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900 dark:text-white">Mood Booster</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Reduces stress and releases endorphins
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Types of Activity Section -->
+            <section class="px-4 py-4">
+                <h2 class="mb-4 text-xl font-extrabold text-slate-900 dark:text-white">Types of Activity</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Aerobic Card -->
+                    <div
+                        class="rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-background-dark p-4 shadow-sm">
+                        <div
+                            class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                            <span class="material-symbols-outlined">directions_run</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Aerobic</h3>
+                        <p class="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Walking, swimming, cycling, or light jogging.
+                        </p>
+                    </div>
+                    <!-- Strengthening Card -->
+                    <div
+                        class="rounded-xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-background-dark p-4 shadow-sm">
+                        <div
+                            class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                            <span class="material-symbols-outlined">weight</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Strengthening</h3>
+                        <p class="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Free weights, resistance bands, or yoga.
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <!-- Pro Tip Callout -->
+            <section class="px-4 py-4">
+                <div class="rounded-xl bg-primary px-5 py-6 text-white shadow-lg shadow-primary/20">
+                    <div class="flex items-center gap-3">
+                        <span class="material-symbols-outlined text-white font-bold">lightbulb</span>
+                        <h3 class="text-lg font-bold">Pro Tip</h3>
+                    </div>
+                    <p class="mt-3 text-sm leading-relaxed text-blue-50">
+                        Start slow and build up. Even 5-10 minutes of movement is better than none! Consistency is key
+                        to long-term heart health.
+                    </p>
+                </div>
+            </section>
+        </main>
+        <!-- Bottom Navigation Bar -->
+        <nav
+            class="fixed bottom-0 z-20 w-full max-w-md bg-white/95 dark:bg-background-dark/95 backdrop-blur-md border-t border-slate-100 dark:border-slate-800 px-6 pb-6 pt-3">
+            <div class="flex justify-between items-center">
+                <a class="flex flex-col items-center gap-1 text-slate-400 transition-colors" href="#">
+                    <span class="material-symbols-outlined text-2xl">calculate</span>
+                    <span class="text-[10px] font-bold">Calculator</span>
+                </a>
+                <a class="flex flex-col items-center gap-1 text-slate-400 transition-colors" href="#">
+                    <span class="material-symbols-outlined text-2xl">history</span>
+                    <span class="text-[10px] font-bold">History</span>
+                </a>
+                <a class="flex flex-col items-center gap-1 text-primary transition-colors" href="#">
+                    <span class="material-symbols-outlined text-2xl"
+                        style="font-variation-settings: 'FILL' 1;">book</span>
+                    <span class="text-[10px] font-bold">Resources</span>
+                </a>
+                <a class="flex flex-col items-center gap-1 text-slate-400 transition-colors" href="#">
+                    <span class="material-symbols-outlined text-2xl">settings</span>
+                    <span class="text-[10px] font-bold">Settings</span>
+                </a>
+            </div>
+        </nav>
+    </div>
+</body>
+
+</html>

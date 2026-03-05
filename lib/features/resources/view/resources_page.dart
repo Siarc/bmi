@@ -76,6 +76,7 @@ class ResourcesPage extends StatelessWidget {
               icon: Icons.directions_run,
               title: 'Increase Activity',
               subtitle: 'Add movement to your daily routine.',
+              onTap: () => context.push(AppRouter.increasePhysicalActivityPath),
             ),
             const SizedBox(height: AppTheme.spacingXxxl),
             _SectionHeader(
