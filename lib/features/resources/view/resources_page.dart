@@ -61,15 +61,7 @@ class ResourcesPage extends StatelessWidget {
               subtitle: 'Foods that lower blood pressure naturally.',
               onTap: () => context.push(AppRouter.heartHealthyDietPath),
             ),
-            const SizedBox(height: AppTheme.spacingMd),
-            _ResourceCard(
-              bgColor: AppColors.emeraldCardBg,
-              iconColor: AppColors.accentEmerald,
-              icon: Icons.restaurant_menu,
-              title: 'Healthy Recipes',
-              subtitle: 'Delicious, low-sodium meals for your heart.',
-            ),
-            const SizedBox(height: AppTheme.spacingMd),
+
             _ResourceCard(
               bgColor: AppColors.amberCardBg,
               iconColor: AppColors.accentAmber,
@@ -110,9 +102,6 @@ class ResourcesPage extends StatelessWidget {
               subtitle: 'Understand health complications of low body weight.',
               onTap: () => context.push(AppRouter.risksUnderweightPath),
             ),
-            const SizedBox(height: AppTheme.spacingXxxl),
-            _FindDoctorCard(),
-            const SizedBox(height: AppTheme.spacingXxxl),
           ],
         ),
       ),
@@ -203,62 +192,3 @@ class _ResourceCard extends StatelessWidget {
   }
 }
 
-/// "Find a Doctor" CTA card from the reference design.
-class _FindDoctorCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.spacingXxl),
-      decoration: BoxDecoration(
-        color: AppColors.ctaBackground,
-        borderRadius: BorderRadius.circular(AppTheme.radiusXl),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.ctaBackground.withValues(alpha: 0.3),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Need professional advice?',
-              style: theme.textTheme.displaySmall?.copyWith(
-                color: Colors.white,
-              )),
-          const SizedBox(height: AppTheme.spacingSm),
-          Text(
-            'Find a healthcare provider to discuss your personal '
-            'health plan and get expert guidance.',
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.white.withValues(alpha: 0.85),
-            ),
-          ),
-          const SizedBox(height: AppTheme.spacingXxl),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              // TODO: Implement doctor locator feature
-              // Navigate to a doctor finder screen with location/specialty search.
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: AppColors.ctaBackground,
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppTheme.radiusMd),
-                ),
-              ),
-              child: Text('Find a Doctor',
-                  style: theme.textTheme.labelLarge?.copyWith(
-                    color: AppColors.ctaBackground,
-                  )),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
