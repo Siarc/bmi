@@ -94,14 +94,6 @@ class ResourcesPage extends StatelessWidget {
             ),
             const SizedBox(height: AppTheme.spacingMd),
             _ResourceCard(
-              bgColor: AppColors.cyanCardBg,
-              iconColor: AppColors.accentCyan,
-              icon: Icons.speed,
-              title: 'Control your numbers',
-              subtitle: 'BMI, cholesterol, and blood pressure.',
-            ),
-            const SizedBox(height: AppTheme.spacingMd),
-            _ResourceCard(
               bgColor: AppColors.roseCardBg,
               iconColor: AppColors.accentRose,
               icon: Icons.trending_up,
