@@ -317,10 +317,11 @@ class UnderstandingObesityPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: AppTheme.spacingLg),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
                         child: _HealthRiskBox(
                           icon: Icons.favorite,
                           iconSemanticLabel: 'Heart Icon',
@@ -351,6 +352,94 @@ class UnderstandingObesityPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  ),
+                  const SizedBox(height: AppTheme.spacingXl),
+                  Text(
+                    'Obesity is often linked to more than 200 different medical conditions. While heart disease, type 2 diabetes, and sleep apnea are the "big three," excess weight impacts nearly every organ system in the body.\n\nBeyond those mentioned above, here are several other critical health risks to consider:',
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                      height: 1.5,
+                    ),
+                  ),
+                  const SizedBox(height: AppTheme.spacingLg),
+                  
+                  const _RiskCategoryCard(
+                    title: 'Digestive & Organ Health',
+                    icon: Icons.medical_services_outlined,
+                    iconColor: Colors.teal,
+                    risks: [
+                      {
+                        'name': 'Fatty Liver Disease',
+                        'desc': 'Often called Metabolic Dysfunction-Associated Steatotic Liver Disease (MASLD), this occurs when fat builds up in the liver, potentially leading to cirrhosis or liver failure.'
+                      },
+                      {
+                        'name': 'Gallbladder Disease',
+                        'desc': 'Obesity increases the risk of developing painful gallstones and other gallbladder issues.'
+                      },
+                      {
+                        'name': 'Kidney Disease',
+                        'desc': 'Excess weight can cause the kidneys to work harder to filter blood, increasing the risk of chronic kidney disease (CKD).'
+                      },
+                    ],
+                  ),
+                  const _RiskCategoryCard(
+                    title: 'Physical & Structural Risks',
+                    icon: Icons.accessibility_new,
+                    iconColor: Colors.deepOrange,
+                    risks: [
+                      {
+                        'name': 'Osteoarthritis',
+                        'desc': 'The extra pressure on joints—especially the knees, hips, and ankles—wears down cartilage and causes chronic pain.'
+                      },
+                      {
+                        'name': 'Gout',
+                        'desc': 'A painful type of arthritis linked to high levels of uric acid, which is more common in individuals with obesity.'
+                      },
+                      {
+                        'name': 'Respiratory Issues',
+                        'desc': 'Beyond sleep apnea, obesity is a major risk factor for developing asthma and can make existing asthma much harder to manage.'
+                      },
+                    ],
+                  ),
+                  const _RiskCategoryCard(
+                    title: 'Neurological & Mental Health',
+                    icon: Icons.psychology,
+                    iconColor: Colors.purple,
+                    risks: [
+                      {
+                        'name': 'Dementia Risk',
+                        'desc': 'Research shows mid-life obesity can increase the risk of dementia by up to 74%, as it may accelerate brain aging.'
+                      },
+                      {
+                        'name': 'Mental Health Conditions',
+                        'desc': 'There is a strong, bidirectional link between obesity and clinical depression or anxiety.'
+                      },
+                      {
+                        'name': 'Idiopathic Intracranial Hypertension',
+                        'desc': 'A neurological condition where high pressure inside the skull causes severe headaches and vision problems.'
+                      },
+                    ],
+                  ),
+                  const _RiskCategoryCard(
+                    title: 'Other Significant Risks',
+                    icon: Icons.warning_amber_rounded,
+                    iconColor: Colors.amber,
+                    risks: [
+                      {
+                        'name': 'Cancer',
+                        'desc': 'Obesity is linked to at least 13 types of cancer, including breast, colon, kidney, liver, and pancreatic cancer.'
+                      },
+                      {
+                        'name': 'Pregnancy Complications',
+                        'desc': 'For those who are pregnant, obesity increases the risk of gestational diabetes, high blood pressure, and complications for the baby.'
+                      },
+                      {
+                        'name': 'Immune Function',
+                        'desc': 'It can impair the immune system, leading to a higher risk of severe illness from infections like the flu or COVID-19.'
+                      },
+                    ],
+                  ),
+                  
                   const SizedBox(height: AppTheme.spacingXl),
                   Center(
                     child: Text(
@@ -527,12 +616,6 @@ class _HealthRiskBox extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(height: 8),
-            Icon(
-              Icons.expand_more, 
-              size: 16, 
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
-            ),
           ],
         ),
       ),
@@ -597,3 +680,80 @@ class _BmiSpectrumPainter extends CustomPainter {
     return oldDelegate.currentBmi != currentBmi || oldDelegate.isDark != isDark;
   }
 }
+
+class _RiskCategoryCard extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final Color iconColor;
+  final List<Map<String, String>> risks;
+
+  const _RiskCategoryCard({
+    required this.title,
+    required this.icon,
+    required this.iconColor,
+    required this.risks,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF1E293B).withValues(alpha: 0.3) : theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(AppTheme.radiusLg),
+        border: Border.all(
+          color: isDark ? const Color(0xFF334155) : theme.colorScheme.outline.withValues(alpha: 0.1),
+        ),
+      ),
+      child: ExpansionTile(
+        shape: const RoundedRectangleBorder(side: BorderSide.none),
+        collapsedShape: const RoundedRectangleBorder(side: BorderSide.none),
+        leading: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: iconColor.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: iconColor, size: 20),
+        ),
+        title: Text(
+          title,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+        children: risks.map((risk) => Padding(
+          padding: const EdgeInsets.only(bottom: 12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '• ${risk['name']}',
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: isDark ? Colors.white : Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Text(
+                  risk['desc']!,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                    height: 1.4,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )).toList(),
+      ),
+    );
+  }
+}
+
